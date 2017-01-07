@@ -1,4 +1,4 @@
- |Documentation|_  |Landscape|_
+|Documentation|_  |Landscape|_
 
 .. |Documentation| image:: https://readthedocs.org/projects/sciquence/badge/?version=latest
 .. _Documentation: http://sciquence.readthedocs.io/en/latest/

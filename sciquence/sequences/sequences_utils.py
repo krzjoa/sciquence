@@ -1,3 +1,11 @@
+# Krzysztof Joachimiak 2016
+# sciquence: Time series & sequences in Python
+#
+# Functions for sequence processing
+# Author: Krzysztof Joachimiak
+#
+# License: MIT
+
 import numpy as np
 from itertools import groupby
 
@@ -5,20 +13,40 @@ from itertools import groupby
 def seq(array):
     '''
 
-    Cuts input array into sequences consisting of the same elements
+    Cut input array into sequences consisting of the same elements
 
     Parameters
     ----------
-    array: array-like
+    array: ndarray
         Numpy array
 
     Returns
     -------
-    seq_list: list of array-like
+    seq_list: list of ndarray
         List of sequences
 
     '''
     return [np.array(list(group)) for elem, group in groupby(array)]
+
+
+def specseq(array, element):
+    '''
+
+    Return sequences consisting of specific tag
+
+    Parameters
+    ----------
+    array: ndarray
+        Numpy array
+    element: object
+        Element
+
+    Returns
+    -------
+
+    '''
+    return [np.array(list(group)) for elem, group in groupby(array) if elem == element]
+
 
 
 def nseq(array):
@@ -36,9 +64,6 @@ def nseq(array):
 
     '''
 
-
-def specific_seq(array):
-    pass
 
 # def seq_to_ind(sequence, only_true=False):
 #     start = 0

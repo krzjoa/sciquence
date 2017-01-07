@@ -90,3 +90,42 @@ class Processor(six.with_metaclass(ABCMeta, BaseEstimator)):
         '''
 
         return self.fit(X, y).process(X, y)
+
+
+
+#####################################################################
+
+
+class Generator(six.with_metaclass(ABCMeta, BaseEstimator)):
+
+    _estimator_type = "generator"
+
+    @abstractmethod
+    def fit(self, X, y=None):
+        '''
+
+        Parameters
+        ----------
+        X : ndarray, shape (n_samples, n_features)
+            Matrix containing data being a sequence or a time series.
+
+        Returns
+        -------
+        self: object
+            Returns self
+
+        '''
+
+    @abstractmethod
+    def generate(self, ln_seq):
+        pass
+
+
+
+
+#######################################################################
+
+
+class Miner(six.with_metaclass(ABCMeta, BaseEstimator)):
+
+    _estimator_type = "miner"

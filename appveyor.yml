@@ -33,7 +33,7 @@ install:
 
   # Install the generated wheel package to test it
   #- "pip install --pre --no-index --find-links dist/ bayes-variants"
-  - pip install git+https://github.com/krzjoa/Bayes.git
+  - pip install git+https://github.com/krzjoa/sciquence.git
 
 # Not a .NET project, we build in the install step instead
 build: false
