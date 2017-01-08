@@ -1,7 +1,4 @@
-import unittest
-from sciquence.windows import WindowsMaker
 import numpy as np
-
 
 from sciquence.load_utils import word2idx
 #from sklearn.text_processing import LabelEncoder
@@ -10,7 +7,6 @@ from sciquence.load_utils import word2idx
 # sen, w2i = word2idx('../data/pan-tadeusz.txt')
 #
 # print sen,
-
 from sciquence.text_processing import WordEncoder
 
 
@@ -30,9 +26,16 @@ from sciquence.text_processing import WordEncoder
 
 import sciquence.sequences.cy_searching as cys
 
-x = [9,-3,1,7,-15,2,3,-4,2,-7,6,-2,8,4,-9]
-print len(x)
-print cys.mln_point(x)
+x = np.array([9, -3, 1, 7,-15, 2, 3,-4, 2,-7, 6, -2, 8, 4, -9])
+#print len(x)
+#print cys.mln_point(list(x))
+
+print x[0:2]
+
+#print cys.drs_point(list(x))
+#print cys._d([1,2,3,4,5,6], 4)
+
+
 
 
 
