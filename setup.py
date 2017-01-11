@@ -87,7 +87,7 @@ setup(
     install_requires=INSTALL_REQUIRES,
     license='MIT',
     zip_safe=False,
-    ext_modules=extensions,
+    ext_modules=cythonize(extensions),
     keywords='sciquence',
     classifiers=classifiers,
 )
