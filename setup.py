@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+import os
+import sys
+
 from distutils.core import setup, Extension
 from Cython.Build import cythonize
 import numpy as np
@@ -7,15 +11,14 @@ import numpy as np
 # )
 
 
-#!/usr/bin/env python
 
-import os
-import sys
 
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from distutils.core import setup
+## TODO: debug setuptools & cython
+
+# try:
+#     from setuptools import setup, find_packages
+# except ImportError:
+#     from distutils.core import setup
 
 
 if sys.argv[-1] == 'publish':
@@ -52,12 +55,14 @@ VERSION = '0.1.1'
 
 # Cython
 
-extensions = [
-    Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
-              include_dirs=[np.get_include()]),
-    ]
+# extensions = [
+#     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
+#               include_dirs=[np.get_include()]),
+#     ]
 
-#extensions = cythonize(ext)
+extensions =  cythonize("sciquence/sequences/cy_searching.pyx", include_path = [np.get_include()])
+
+#print extensions
 
 
 # Classifiers
@@ -81,13 +86,13 @@ setup(
     author='Krzysztof Joachimiak',
     # author_email='',
     url='https://github.com/krzjoa/sciquence',
-    packages=find_packages(where='.', exclude=('tests')),
+    #packages=find_packages(where='.', exclude=('tests')),
     package_dir={'sciquence': 'sciquence'},
-    include_package_data=True,
-    install_requires=INSTALL_REQUIRES,
+    #include_package_data=True,
+    #install_requires=INSTALL_REQUIRES,
     license='MIT',
-    zip_safe=False,
-    ext_modules=cythonize(extensions),
+    #zip_safe=False,
+    ext_modules=extensions,
     keywords='sciquence',
     classifiers=classifiers,
 )
