@@ -52,12 +52,12 @@ VERSION = '0.1.1'
 
 # Cython
 
-ext = [
+extensions = [
     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
               include_dirs=[np.get_include()]),
     ]
 
-extensions = cythonize(ext)
+#extensions = cythonize(ext)
 
 
 # Classifiers
