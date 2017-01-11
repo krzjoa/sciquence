@@ -144,131 +144,131 @@ def subseq_sum(int i, int j, list A):
   #cdef int idx
   #pass
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def drs_point(A):
-  '''
-
-  Sets up the right-skew pointers in O(n) time
-
-  Parameters
-  ----------
-  A: list of float
-    List of float numbers
-
-  Returns
-  -------
-  ln_pointers: list of int
-    List of right-skew pointers
-
-  References
-  ----------
-  Lin Y.L., Jiang T., Chaoc K.M. (2002).
-
-  Efficient algorithms for locating the
-  length-constrained heaviest segments
-  with applications to biomolecular
-  sequence analysis
-
-  http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf
-
-  '''
-
-  cdef int n = len(A)
-  cdef int i
-  cdef int* p = <int *> malloc(n * sizeof(int))
-  cdef int* w = <int *> malloc(n * sizeof(float))
-  cdef int* d = <int *> malloc(n * sizeof(int))
-
-  for i in reversed(range(n)):
-    p[i] = i
-    w[i] = _w(A, i)
-    d[i] = _d(A, i)
-    while (p[i] < n-1) and (w[i]/d[i] <= w[p[i] + 1] /d[p[i] + 1]):
-        w[i] = w[i] + w[p[i] + 1]
-        d[i] = d[i] + d[p[i] + 1]
-        p[i] = p[p[i] + 1]
-  try:
-    return [ p[i] for i in range(n) ]
-  finally:
-     free(p)
-     free(w)
-     free(d)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def _w(list A, int idx):
-  print A, idx
-  return np.mean(A[idx:])
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def _d(list A, int idx):
-    return len(A[idx:])
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def max_avg_seq(A, L):
-  '''
-  Given a length n real sequence,
-  finding the consecutive subsequence of
-  length at least L with the maximum average
-  can be done in O(n log L) time.
-
-  Parameters
-  ----------
-  A: list of float
-    List of float numbers
-
-  Returns
-  -------
-  ln_pointers: list of int
-    List of right-skew pointers
-
-  References
-  ----------
-  Lin Y.L., Jiang T., Chaoc K.M. (2002).
-
-  Efficient algorithms for locating the
-  length-constrained heaviest segments
-  with applications to biomolecular
-  sequence analysis
-
-  '''
-  cdef int n = len(A)
-  cdef list p = drs_point(A)
-  cdef int i, j
-  cdef int* g = <int *> malloc(n * sizeof(int))
-
-  cdef list p = drs_point(A)
-
-  for i in range(n - L + 1):
-    j = i + L - 1
-    if mi(A, i, j) < mi(A, j+1, p[j+1]):
-      j = locate(A, p, i, j)
-    g[i] = j
-  return (i, g[i])
-
-
-
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def mi(list A, int i, int j):
-  return np.mean(A[i:j+1])
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def locate(list A, list p, int i, int j):
-  '''
-  Binary search
-
-  '''
-  cdef int k = np.ceil(np.log(L)).astype(int)
-
-  for i in reversed(range(k)):
-
-    if j >= n or (mi(i,j) >= mi(A, j+1, p[j+1]):
-      return j
-
-    if p
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def drs_point(A):
+#   '''
+#
+#   Sets up the right-skew pointers in O(n) time
+#
+#   Parameters
+#   ----------
+#   A: list of float
+#     List of float numbers
+#
+#   Returns
+#   -------
+#   ln_pointers: list of int
+#     List of right-skew pointers
+#
+#   References
+#   ----------
+#   Lin Y.L., Jiang T., Chaoc K.M. (2002).
+#
+#   Efficient algorithms for locating the
+#   length-constrained heaviest segments
+#   with applications to biomolecular
+#   sequence analysis
+#
+#   http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf
+#
+#   '''
+#
+#   cdef int n = len(A)
+#   cdef int i
+#   cdef int* p = <int *> malloc(n * sizeof(int))
+#   cdef int* w = <int *> malloc(n * sizeof(float))
+#   cdef int* d = <int *> malloc(n * sizeof(int))
+#
+#   for i in reversed(range(n)):
+#     p[i] = i
+#     w[i] = _w(A, i)
+#     d[i] = _d(A, i)
+#     while (p[i] < n-1) and (w[i]/d[i] <= w[p[i] + 1] /d[p[i] + 1]):
+#         w[i] = w[i] + w[p[i] + 1]
+#         d[i] = d[i] + d[p[i] + 1]
+#         p[i] = p[p[i] + 1]
+#   try:
+#     return [ p[i] for i in range(n) ]
+#   finally:
+#      free(p)
+#      free(w)
+#      free(d)
+#
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def _w(list A, int idx):
+#   print A, idx
+#   return np.mean(A[idx:])
+#
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def _d(list A, int idx):
+#     return len(A[idx:])
+#
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def max_avg_seq(A, L):
+#   '''
+#   Given a length n real sequence,
+#   finding the consecutive subsequence of
+#   length at least L with the maximum average
+#   can be done in O(n log L) time.
+#
+#   Parameters
+#   ----------
+#   A: list of float
+#     List of float numbers
+#
+#   Returns
+#   -------
+#   ln_pointers: list of int
+#     List of right-skew pointers
+#
+#   References
+#   ----------
+#   Lin Y.L., Jiang T., Chaoc K.M. (2002).
+#
+#   Efficient algorithms for locating the
+#   length-constrained heaviest segments
+#   with applications to biomolecular
+#   sequence analysis
+#
+#   '''
+#   cdef int n = len(A)
+#   cdef list p = drs_point(A)
+#   cdef int i, j
+#   cdef int* g = <int *> malloc(n * sizeof(int))
+#
+#   cdef list p = drs_point(A)
+#
+#   for i in range(n - L + 1):
+#     j = i + L - 1
+#     if mi(A, i, j) < mi(A, j+1, p[j+1]):
+#       j = locate(A, p, i, j)
+#     g[i] = j
+#   return (i, g[i])
+#
+#
+#
+#
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def mi(list A, int i, int j):
+#   return np.mean(A[i:j+1])
+#
+# @cython.boundscheck(False)
+# @cython.wraparound(False)
+# def locate(list A, list p, int i, int j):
+#   '''
+#   Binary search
+#
+#   '''
+#   cdef int k = np.ceil(np.log(L)).astype(int)
+#
+#   for i in reversed(range(k)):
+#
+#     if j >= n or (mi(i,j) >= mi(A, j+1, p[j+1]):
+#       return j
+#
+#     if p
