@@ -18,6 +18,7 @@ class TestSequences(unittest.TestCase):
         expected = [np.array([1, 1, 1]), np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
                     np.array([1, 1, 1, 1, 1, 1, 1, 1, 1]),
                     np.array([0, 0, 0, 0]), np.array([1, 1, 1, 1]), np.array([0, 0, 0])]
+
         assert seq_equals(seq(x), expected)
 
 if __name__ == '__main__':

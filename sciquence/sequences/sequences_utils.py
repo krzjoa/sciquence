@@ -85,7 +85,6 @@ def seq_equals(lseqa, lseqb):
 
     '''
     ans = [np.array_equal(a, b) for a, b in zip(lseqa, lseqb)]
-    print ans
     return np.logical_and.reduce(ans)
 
 
