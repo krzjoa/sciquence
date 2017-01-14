@@ -9,9 +9,9 @@ Welcome to sciquence's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-
+   api
 
 Indices and tables
 ==================
