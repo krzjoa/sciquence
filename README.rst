@@ -13,3 +13,8 @@ sciquence
 =========
 
 Time series & sequences processing in Python
+
+Current features
+----------------
+* Cutting sequences
+* Sliding window for sequences
