@@ -16,7 +16,7 @@ import numpy as np
 try:
     from setuptools import setup, find_packages, Extension, Command
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup,  Extension, Command
 
 
 if sys.argv[-1] == 'publish':
@@ -53,12 +53,12 @@ VERSION = '0.1.1'
 
 # Cython
 
-# extensions = [
-#     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
-#               include_dirs=[np.get_include()]),
-#     ]
+extensions = [
+    Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
+              include_dirs=[np.get_include()]),
+    ]
 
-#extensions =  cythonize(extensions)
+extensions =  cythonize(extensions)
 #extensions =  cythonize("sciquence/sequences/cy_searching.pyx", include_path = [np.get_include()])
 
 #print extensions
@@ -91,7 +91,7 @@ setup(
     install_requires=INSTALL_REQUIRES,
     license='MIT',
     zip_safe=False,
- #   ext_modules=extensions,
+    ext_modules=extensions,
     keywords='sciquence',
     classifiers=classifiers,
 )

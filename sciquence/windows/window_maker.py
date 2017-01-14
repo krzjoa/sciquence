@@ -1,4 +1,4 @@
-# Krzysztof Joachimiak 2016
+# Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
 # Data processors for making windows
@@ -13,7 +13,7 @@ from ..base import Processor
 import numpy as np
 
 
-class WindowsMaker(Processor):
+class WindowMaker(Processor):
     '''
 
     Object for making contextual windows in sequence/time series processing
