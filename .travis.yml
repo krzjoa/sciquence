@@ -18,7 +18,7 @@ virtualenv:
 
 install:
   #- pip install -r requirements.txt
-  - pip isntall numpy
+  - pip install numpy
   - pip install scipy
   - pip install -r requirements.txt
   - pip install .
