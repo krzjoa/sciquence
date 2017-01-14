@@ -65,6 +65,30 @@ def nseq(array):
     '''
 
 
+
+def seq_equals(lseqa, lseqb):
+    '''
+
+    Compare two lists of ndarrays
+
+    Parameters
+    ----------
+    lseqa: list of ndarray
+        List of sequneces
+    lseqb: list of ndarray
+        List of sequneces
+
+    Returns
+    -------
+    ans: bool
+        True if lists equal, otherwise False
+
+    '''
+    ans = [np.array_equal(a, b) for a, b in zip(lseqa, lseqb)]
+    print ans
+    return np.logical_and.reduce(ans)
+
+
 # def seq_to_ind(sequence, only_true=False):
 #     start = 0
 #     indices = []
