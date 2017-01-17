@@ -19,7 +19,7 @@ class WordEncoder(object):
 
     '''
 
-    def __init__(self, raw_text=False):
+    def __init__(self):
         self.words = OrderedDict([('START',0), ('END',1)])
 
     def __getitem__(self, item):
@@ -115,7 +115,7 @@ class WordEncoder(object):
 
         Transform list of indices into list of words
 
-                Parameters
+        Parameters
         ----------
         X: list of list of str or str
             List containing list of strings or raw text input

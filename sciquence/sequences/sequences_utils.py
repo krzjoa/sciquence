@@ -71,6 +71,26 @@ def nseq(array):
     return [np.array(list(group)) for elem, group in groupby(array) if not elem]
 
 
+def pseq(array):
+    '''
+
+    Returns sequences consisting of zeros
+
+    Parameters
+    ----------
+    array: array-like
+        Numpy array
+
+    Returns
+    -------
+    seq_list: list of ndarray
+        List of negative sequences
+
+    '''
+
+    return [np.array(list(group)) for elem, group in groupby(array) if elem]
+
+
 
 def seq_equals(lseqa, lseqb):
     '''

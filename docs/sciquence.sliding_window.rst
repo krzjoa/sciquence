@@ -1,5 +1,8 @@
-.. _sliding_window:
+Sliding window
+==============
 
+.. autosummary::
+    :toctree: generated/
 
-.. automodule:: sciquence.sliding_window
+    SlidingWindow
 
