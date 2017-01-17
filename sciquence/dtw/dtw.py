@@ -11,6 +11,17 @@
 
 from sklearn.base import BaseEstimator
 
+def test():
+    '''
+
+    To jest testowa funkcja
+
+    Returns
+    -------
+
+    '''
+    pass
+
 
 # class DTW(BaseEstimator):
 #     '''
