@@ -1,7 +1,7 @@
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
-# Data processors for making windows
+# Data processors for making sliding_window
 # Author: Krzysztof Joachimiak
 #
 # License: MIT
@@ -16,7 +16,7 @@ import numpy as np
 class WindowMaker(Processor):
     '''
 
-    Object for making contextual windows in sequence/time series processing
+    Object for making contextual sliding_window in sequence/time series processing
 
     '''
 

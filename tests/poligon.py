@@ -13,7 +13,7 @@ import numpy as np
 # z =  we.transform(X)
 # print z
 # print we.inverse_transform(z)
-from sciquence.windows import *
+from sciquence.sliding_window import *
 
 X_dummy = np.array(
     [1, 2, 3, 4, 5, 11, 12, 13, 14]

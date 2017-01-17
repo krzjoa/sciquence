@@ -1,5 +1,5 @@
 import unittest
-from sciquence.windows import WindowMaker, SlidingWindow
+from sciquence.sliding_window import WindowMaker, SlidingWindow
 from sciquence.sequences import seq_equals
 import numpy as np
 

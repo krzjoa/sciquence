@@ -9,7 +9,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.preprocessing import binarize
-from windows import generate_windows
+from sciquence.sliding_window import generate_windows
 
 
 class Seeker(BaseEstimator):
@@ -50,7 +50,7 @@ class Seeker(BaseEstimator):
         return self
 
     def predict_proba(self, X):
-        # FIXME one windows size only!!!
+        # FIXME one sliding_window size only!!!
         #proba = np.zeros((len(X), ))
         raw_proba = []
         indices = []

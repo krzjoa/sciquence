@@ -37,7 +37,7 @@ class SlidingWindow(BaseEstimator, TransformerMixin):
 
     Examples
     --------
-    >>> from sciquence.windows import SlidingWindow
+    >>> from sciquence.sliding_window import SlidingWindow
     >>> import numpy as np
     >>> X = np.array([0, 1, 23, 3, 4, 67, 89, 11, 2, 34])
     >>> print SlidingWindow(window_size=3, shift=4).transform(X)
@@ -82,7 +82,7 @@ class SlidingWindow(BaseEstimator, TransformerMixin):
         # TODO: check array shape
         '''
 
-        Transform sequence into sequence of contextual windows
+        Transform sequence into sequence of contextual sliding_window
 
         Parameters
         ----------
