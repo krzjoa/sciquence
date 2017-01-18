@@ -1,11 +1,5 @@
-sciquence.dtw package
-=====================
-
-Submodules
-----------
-
-Module contents
----------------
+sciquence.dtw
+=============
 
 .. automodule:: sciquence.dtw
     :members:
