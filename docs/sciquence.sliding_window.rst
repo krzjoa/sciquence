@@ -1,8 +1,7 @@
-Sliding window
+sliding_window
 ==============
 
-.. autosummary::
-    :toctree: generated/
-
-    SlidingWindow
-
+.. automodule:: sciquence.sliding_window
+    :members:
+    :undoc-members:
+    :show-inheritance:
