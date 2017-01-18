@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee2ea1b7-0293-4227-8ed4-e47b1342a5d7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sciquence/nn/theano/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sciquence/nn/theano/rnn.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sciquence/nn/theano/rnn_generator.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sciquence/similarity.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sequences/cy_searching.pyx" afterPath="$PROJECT_DIR$/sciquence/sequences/cy_searching.pyx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/sciquence.sequences.rst" afterPath="$PROJECT_DIR$/docs/sciquence.sequences.rst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/sciquence.text_processing.rst" afterPath="$PROJECT_DIR$/docs/sciquence.text_processing.rst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sequences/__init__.py" afterPath="$PROJECT_DIR$/sciquence/sequences/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sequences/sequences_utils.py" afterPath="$PROJECT_DIR$/sciquence/sequences/sequences_utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sliding_window/__init__.py" afterPath="$PROJECT_DIR$/sciquence/sliding_window/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sliding_window/seeker.py" afterPath="$PROJECT_DIR$/sciquence/sliding_window/seeker.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/sliding_window/window_generator.py" afterPath="$PROJECT_DIR$/sciquence/sliding_window/window_generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/text_processing/__init__.py" afterPath="$PROJECT_DIR$/sciquence/text_processing/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/poligon.py" afterPath="$PROJECT_DIR$/tests/poligon.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/conf.py" afterPath="$PROJECT_DIR$/docs/conf.py" />
     </list>
     <ignored path="sciquence.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,6 +58,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="conf.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/conf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="window_maker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sciquence/sliding_window/window_maker.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -105,7 +101,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nn_utils.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="nn_utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sciquence/nn/nn_utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -174,7 +170,6 @@
         <option value="$PROJECT_DIR$/tests/test_windows.py" />
         <option value="$PROJECT_DIR$/sciquence/windows/sliding_window.py" />
         <option value="$PROJECT_DIR$/sciquence/dtw/dtw.py" />
-        <option value="$PROJECT_DIR$/docs/conf.py" />
         <option value="$PROJECT_DIR$/sciquence/dtw/__init__.py" />
         <option value="$PROJECT_DIR$/docs/sciquence.dtw.rst" />
         <option value="$PROJECT_DIR$/docs/api.rst" />
@@ -191,6 +186,7 @@
         <option value="$PROJECT_DIR$/sciquence/sequences/sequences_utils.py" />
         <option value="$PROJECT_DIR$/sciquence/sequences/__init__.py" />
         <option value="$PROJECT_DIR$/tests/poligon.py" />
+        <option value="$PROJECT_DIR$/docs/conf.py" />
       </list>
     </option>
   </component>
@@ -287,7 +283,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sciquence" />
+              <option name="myItemId" value="docs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -597,9 +593,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32869694" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32869694" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30590063" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28416148" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -825,13 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/conf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sciquence/sequences/searching.py" />
     <entry file="file://$PROJECT_DIR$/tests/test_sequences.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1003,16 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sciquence/sequences/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/dist-packages/sklearn/ensemble/forest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4901">
@@ -1052,6 +1031,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sciquence/sequences/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
           <folding />
         </state>
       </provider>
