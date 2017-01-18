@@ -26,7 +26,7 @@ from sciquence.sliding_window import wingen
 
 from sciquence.sequences import longest_segment
 
-x = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -56, 67, 1, 3, 4, 5])
+x = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
 
 ls =  longest_segment(x, 30)
 print  ls, sum(ls)

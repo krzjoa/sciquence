@@ -153,20 +153,25 @@ def longest_segment(np.ndarray sequence, float alpha):
   >>> from sciquence.sequences import longest_segment
   >>> import numpy as np
   >>> X = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -56, 67, 1, 3, 4, 5])
-  >>> ls = longest_segment(X, 30)
-  >>> print ls, sum(ls)
+  >>> ls1 = longest_segment(X, 30)
+  >>> print ls1, sum(ls1)
   >>> [67  1  3  4  5] 80
+  >>> # Next, we change -56 into -50
+  >>> Z = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
+  >>> ls2 = longest_segment(Z, 30)
+  >>> [ -4   5 -50  67   1   3   4   5] 31
 
   Notes
   -----
   Keep in mind that this algorithm maximizes segment length,
-  not the segment total sum
+  not the segment total sum.
 
   References
   ----------
   Csűrös M. (2008).
-  A linear-time algorithm for finding the longest
-  segment which scores above a given threshold
+
+  *A linear-time algorithm for finding the longest
+  segment which scores above a given threshold*
 
   https://arxiv.org/pdf/cs/0512016.pdf
 
