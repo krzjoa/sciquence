@@ -15,16 +15,21 @@ import numpy as np
 # print we.inverse_transform(z)
 from sciquence.sliding_window import *
 
-X_dummy = np.array(
-    [1, 2, 3, 4, 5, 11, 12, 13, 14]
-)
+from sciquence.sliding_window import wingen
 
-# Sliding window object
-sw = SlidingWindow(window_size=3, shift=4)
+# X = np.array([[1, 2, 3],
+#               [11, 12, 13],
+#               [21, 22, 23],
+#               [31, 32, 33]])
+#
+# print wingen(X, 2, 1).next()
 
-print sw.transform(X_dummy)
+from sciquence.sequences import longest_segment
 
+x = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -56, 67, 1, 3, 4, 5])
 
+ls =  longest_segment(x, 30)
+print  ls, sum(ls)
 
 
 

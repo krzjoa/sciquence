@@ -1,11 +1,5 @@
-sciquence.sequences package
-===========================
-
-Submodules
-----------
-
-Module contents
----------------
+sciquence.sequences
+===================
 
 .. automodule:: sciquence.sequences
     :members:

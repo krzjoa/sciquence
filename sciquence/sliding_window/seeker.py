@@ -9,7 +9,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.preprocessing import binarize
-from sciquence.sliding_window import generate_windows
+from sciquence.sliding_window import wingen
 
 
 class Seeker(BaseEstimator):
@@ -54,7 +54,7 @@ class Seeker(BaseEstimator):
         #proba = np.zeros((len(X), ))
         raw_proba = []
         indices = []
-        for fragment, idx in generate_windows(X, self.window_sizes[0], self.windows_shifts[0]):
+        for fragment, idx in wingen(X, self.window_sizes[0], self.windows_shifts[0]):
             indices.append(idx)
             raw_proba.append(self.estimator_.predict(self.test_pipeline(fragment)))
         return self.proba_combiner.combine(raw_proba, indices, output_size=len(X))

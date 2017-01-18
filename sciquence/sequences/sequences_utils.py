@@ -1,4 +1,4 @@
-# Krzysztof Joachimiak 2016
+# Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
 # Functions for sequence processing

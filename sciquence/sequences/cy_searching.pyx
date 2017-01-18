@@ -6,15 +6,17 @@
 #
 # License: MIT
 
+#cython: boundscheck=False, wraparound=False
+
 import numpy as np
 cimport numpy as np
 cimport cython
 from libc.stdlib cimport malloc, free
 from cython.operator cimport postincrement as inc
+from cython.operator cimport postdecrement as dec
 
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
+
 def mln_point(list A):
   '''
 
@@ -64,8 +66,7 @@ def mln_point(list A):
     free(w)
 
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
+
 def mslc(list A, int U):
   '''
 
@@ -123,152 +124,104 @@ def mslc(list A, int U):
     print "max", i, j, max(i, j)
     while j < n and p[j+1] < i + U and w[j+i] > 0:
       j = p[j+1]
-      print "Chuj"
-    # if subseq_sum(i, j, A) > ms:
-    #     mi = i
-    #     mj = j
-    #     ms = subseq_sum(i, j, A)
-    #     print "upd", mi, mj, ms
+
     inc(i)
   return (mi, mj, ms)
 
+# Longest segment algorithm
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def subseq_sum(int i, int j, list A):
-  return sum(A[i:j])
-  # cdef int sum
-  # for i in range(i, j+1):
-  #   sum += A[i]
-  # return sum
-  #cdef int idx
-  #pass
+def longest_segment(np.ndarray sequence, float alpha):
+  '''
+  Find the longest subsequence which
+  scores above a given threshold in O(n)
 
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def drs_point(A):
-#   '''
-#
-#   Sets up the right-skew pointers in O(n) time
-#
-#   Parameters
-#   ----------
-#   A: list of float
-#     List of float numbers
-#
-#   Returns
-#   -------
-#   ln_pointers: list of int
-#     List of right-skew pointers
-#
-#   References
-#   ----------
-#   Lin Y.L., Jiang T., Chaoc K.M. (2002).
-#
-#   Efficient algorithms for locating the
-#   length-constrained heaviest segments
-#   with applications to biomolecular
-#   sequence analysis
-#
-#   http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf
-#
-#   '''
-#
-#   cdef int n = len(A)
-#   cdef int i
-#   cdef int* p = <int *> malloc(n * sizeof(int))
-#   cdef int* w = <int *> malloc(n * sizeof(float))
-#   cdef int* d = <int *> malloc(n * sizeof(int))
-#
-#   for i in reversed(range(n)):
-#     p[i] = i
-#     w[i] = _w(A, i)
-#     d[i] = _d(A, i)
-#     while (p[i] < n-1) and (w[i]/d[i] <= w[p[i] + 1] /d[p[i] + 1]):
-#         w[i] = w[i] + w[p[i] + 1]
-#         d[i] = d[i] + d[p[i] + 1]
-#         p[i] = p[p[i] + 1]
-#   try:
-#     return [ p[i] for i in range(n) ]
-#   finally:
-#      free(p)
-#      free(w)
-#      free(d)
-#
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def _w(list A, int idx):
-#   print A, idx
-#   return np.mean(A[idx:])
-#
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def _d(list A, int idx):
-#     return len(A[idx:])
-#
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def max_avg_seq(A, L):
-#   '''
-#   Given a length n real sequence,
-#   finding the consecutive subsequence of
-#   length at least L with the maximum average
-#   can be done in O(n log L) time.
-#
-#   Parameters
-#   ----------
-#   A: list of float
-#     List of float numbers
-#
-#   Returns
-#   -------
-#   ln_pointers: list of int
-#     List of right-skew pointers
-#
-#   References
-#   ----------
-#   Lin Y.L., Jiang T., Chaoc K.M. (2002).
-#
-#   Efficient algorithms for locating the
-#   length-constrained heaviest segments
-#   with applications to biomolecular
-#   sequence analysis
-#
-#   '''
-#   cdef int n = len(A)
-#   cdef list p = drs_point(A)
-#   cdef int i, j
-#   cdef int* g = <int *> malloc(n * sizeof(int))
-#
-#   cdef list p = drs_point(A)
-#
-#   for i in range(n - L + 1):
-#     j = i + L - 1
-#     if mi(A, i, j) < mi(A, j+1, p[j+1]):
-#       j = locate(A, p, i, j)
-#     g[i] = j
-#   return (i, g[i])
-#
-#
-#
-#
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def mi(list A, int i, int j):
-#   return np.mean(A[i:j+1])
-#
-# @cython.boundscheck(False)
-# @cython.wraparound(False)
-# def locate(list A, list p, int i, int j):
-#   '''
-#   Binary search
-#
-#   '''
-#   cdef int k = np.ceil(np.log(L)).astype(int)
-#
-#   for i in reversed(range(k)):
-#
-#     if j >= n or (mi(i,j) >= mi(A, j+1, p[j+1]):
-#       return j
-#
-#     if p
+  Parameters
+  ----------
+  sequence: ndarray
+    A sequence
+  alpha: float
+    Floating-point threshold being a lower bound for
+    searched segment
+
+  Returns
+  -------
+  segment: ndarray
+    The longest segment with sum above given threshold
+
+  Examples
+  --------
+  >>> from sciquence.sequences import longest_segment
+  >>> import numpy as np
+  >>> X = np.array([-1, -2, -3, -23, -45, -3, -4, 5, -56, 67, 1, 3, 4, 5])
+  >>> ls = longest_segment(X, 30)
+  >>> print ls, sum(ls)
+  >>> [67  1  3  4  5] 80
+
+  Notes
+  -----
+  Keep in mind that this algorithm maximizes segment length,
+  not the segment total sum
+
+  References
+  ----------
+  Csűrös M. (2008).
+  A linear-time algorithm for finding the longest
+  segment which scores above a given threshold
+
+  https://arxiv.org/pdf/cs/0512016.pdf
+
+  '''
+  # TODO: check memory usage
+
+  cdef int n = len(sequence)
+  cdef int N = n + 1
+
+  cdef float* f = <float *> malloc(N * sizeof(float))
+  cdef int i, j, k, m
+
+  cdef int* l = <int *> malloc(N * sizeof(int))
+  cdef int* r = <int *> malloc(N * sizeof(int))
+
+  cdef float max = 0
+  cdef np.ndarray segment = np.array([])
+
+  # Prefix score
+  f[0] = 0
+  for i in range(1, N):
+    f[i] = f[i-1] + sequence[i-1]
+    #print "i", i, f[i]
+
+  # Left sequence of minima
+  k = 0
+  l[0] = 0
+  i = 0
+  for i in range(1, N):
+    if f[i] < f[l[k]]:
+      inc(k)
+      l[k] = i
+      #print 'l', k, l[k]
+
+  # Right sequence maxima
+  m = 0
+  r[0] = n
+  for j in reversed(range(0, n)):
+    if f[j] > f[r[m]]:
+      inc(m)
+      r[m] = j
+      #print m
+
+  # Finding max segment
+  i = 0
+  j = m
+
+  while i <=k and j >= 0:
+    while i <= k and f[l[i]] + alpha > f[r[j]]:
+      inc(i)
+    if i <= k:
+      while j>= 0 and f[l[i]] + alpha <= f[r[j]]:
+        if (r[j] - l[i]) > max:
+          max = r[j] - l[i]
+          segment = sequence[l[i]:r[j]]
+        dec(j)
+
+  return segment
