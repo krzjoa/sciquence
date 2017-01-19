@@ -56,6 +56,8 @@ VERSION = '0.1.1'
 extensions = [
     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
               include_dirs=[np.get_include()]),
+    Extension("sciquence.dtw.cy_segmental_dtw", ["sciquence/dtw/cy_segmental_dtw.pyx"],
+              include_dirs=[np.get_include()]),
     ]
 
 extensions =  cythonize(extensions)

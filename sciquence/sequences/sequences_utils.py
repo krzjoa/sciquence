@@ -74,7 +74,7 @@ def nseq(array):
 def pseq(array):
     '''
 
-    Returns sequences consisting of zeros
+    Returns sequences consisting of ones
 
     Parameters
     ----------
@@ -84,7 +84,7 @@ def pseq(array):
     Returns
     -------
     seq_list: list of ndarray
-        List of negative sequences
+        List of positive sequences
 
     '''
 
