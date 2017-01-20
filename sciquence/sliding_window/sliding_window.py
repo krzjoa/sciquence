@@ -40,7 +40,7 @@ class SlidingWindow(BaseEstimator, TransformerMixin):
     >>> import numpy as np
     >>> X = np.array([0, 1, 23, 3, 4, 67, 89, 11, 2, 34])
     >>> print SlidingWindow(window_size=3, shift=4).transform(X)
-    >>> [array([1, 2, 3]), array([ 5, 11, 12])]
+    [array([1, 2, 3]), array([ 5, 11, 12])]
 
     References
     ----------

@@ -36,12 +36,6 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   matchings: list of list of tuple
       List of matching sequences
 
-  Examples
-  --------
-  >>> from sciquence.dtw import segmental_dtw
-  >>> import numpy as np
-  >>>
-
   See also
   --------
   DTW
