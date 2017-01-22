@@ -9,10 +9,13 @@
 
 import numpy as np
 cimport numpy as np
+from libc.math cimport sqrt
 
+cdef extern from "float.h":
+    double DBL_MAX
 
 def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
-                  int diag_margin=5, str metic='cosine'):
+                  int diag_margin=5, str metric='cosine'):
   '''
   Find similarities between two sequences. Segmental DTW algorithm extends idea
   from Dynamic Time Warping method, and looks for the best warping path not only
@@ -28,8 +31,8 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
     Second sequence
   min_path_len: int
     Minimal length of path
-  metric: str or function
-    Metric
+  metric: str
+    Metric name
 
   Returns
   -------
@@ -38,45 +41,176 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
 
   See also
   --------
-  DTW
+  dtw
 
   References
   ----------
   Park A. S. (2006).
 
   *Unsupervised Pattern Discovery in Speech:
-  Applications to Word Acquisition and Speaker  Segmentation*
+  Applications to Word Acquisition and Speaker Segmentation*
 
   https://groups.csail.mit.edu/sls/publications/2006/Park_Thesis.pdf
 
   '''
   cdef int N = len(A)
   cdef int M = len(B)
-  cdef np.ndarray dist_mat
+  cdef int cost_mat, traceback_mat
+  cdef list path
 
-  # all_diags = all_diagonals(N-1, R=path_window)
-  #
-  # paths, costs = [], []
-  # matchings = []
-  # average = []
-  #
-  # for idx, path in enumerate(all_diags):
-  #   start_i, start_j = path[0][0], path[0][1]
-  #   end_i, end_j = path[1][0], path[1][1]
-  #
-  #   cost_mat, traceback_mat = dtw_distance(s, t, metric, start_i, start_j, end_i, end_j, path_window)
-  #   path = traceback(start_i, start_j, end_i, end_j , traceback_mat)
-  #
-  #   if idx == inspect:
-  #     paths.append(path)
-  #     costs.append(cost_mat)
-  #
-  #   if len(path) >=path_len:
-  #     bts, avg = max_avg_seq(distance_mat, path, path_len)
-  #     matchings.append(bts)
-  #     average.append(avg)
+  cdef list all_diagonal_starts = diagonal_starts(N, M, diag_margin)
+  cdef list best_path_fragments = []
 
-  # return matchings, average, costs, paths
+  # Pętla for iterująca po wszystkich możliwych początkach
+  for idx, diag_start in enumerate(all_diagonal_starts):
+    # Liczę koszt na przekątnych
+    cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
+    print "Diagonal checked"
+    # Traceback po optymalnej ścieżce
+    #path = traceback(diag_start , traceback_mat)
+
+    # if len(path) >=path_len:
+    #   bts, avg = max_avg_seq(distance_mat, path, path_len)
+    #   matchings.append(bts)
+    #   average.append(avg)
+
+  return N
 
 
   ########### Auxiliary functions ##############
+
+cdef inline double cosine_dist(
+        double[:, ::1] x, double[:, ::1] y, Py_ssize_t x_i, Py_ssize_t y_i
+          ):
+    """Calculate the cosine distance between `x[x_i, :]` and `y[y_i, :]`."""
+    cdef int N = x.shape[1]
+    cdef Py_ssize_t i
+    cdef double dot = 0.
+    cdef double norm_x = 0.
+    cdef double norm_y = 0.
+    for i in range(N):
+        dot += x[x_i, i] * y[y_i, i]
+        norm_x += x[x_i, i]*x[x_i, i]
+        norm_y += y[y_i, i]*y[y_i, i]
+      #return 1. - dot/(sqrt(norm_x) * sqrt(norm_y))
+    return dot/(sqrt(norm_x) * sqrt(norm_y))
+
+cdef inline double euclidean_dist(
+        double[:, ::1] x, double[:, ::1] y, Py_ssize_t x_i, Py_ssize_t y_i
+        ):
+    """Calculate the Euclidean distance between `x[x_i, :]` and `y[y_i, :]`."""
+    cdef int N = x.shape[1]
+    cdef Py_ssize_t i
+    cdef double sum_square_diffs = 0.
+    for i in range(N):
+        sum_square_diffs += (x[x_i, i] - y[y_i, i]) * (x[x_i, i] - y[y_i, i])
+    return sqrt(sum_square_diffs)
+
+  # Define a function pointer to a metric function
+ctypedef double (*metric_ptr)(
+    double[:, ::1], double[:, ::1], Py_ssize_t, Py_ssize_t
+    )
+
+cdef inline Py_ssize_t i_min3(double[3] v):
+  cdef Py_ssize_t i, m = 0
+  for i in range(1, 3):
+    if v[i] < v[m]:
+      m = i
+    return m
+
+
+def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='cosine'):
+  cdef int N, M, Nr
+  cdef Py_ssize_t i_penalty
+
+  cdef double[:, ::1] cost_mat
+  cdef double[3] costs
+
+  # Variables for controlling diagonal coordinates
+  cdef int ln = max(A.shape[0], A.shape[1]) - 1
+  cdef int min_len = min(A.shape[0], A.shape[1])
+
+  cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
+  cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
+  cdef shift = 0 if start[0] <= start[1] else -R
+
+  cdef int i, j
+  cdef int start_col, end_col
+
+  cdef float dist
+
+  cdef metric_ptr dist_func
+  if metric == "cosine":
+      dist_func = &cosine_dist
+  elif metric == "euclidean":
+      dist_func = &euclidean_dist
+  else:
+      raise ValueError("Unrecognized metric.")
+
+  N = A.shape[0]
+  M = B.shape[0]
+
+  # Initialize the cost matrix
+  cost_mat = np.zeros((N + 1, M + 1)) + DBL_MAX
+  cost_mat[start[0], start[1]] = 0.
+
+  # Fill the cost matrix
+  traceback_mat = np.zeros((N, M), dtype=np.uint16)
+
+  for i in xrange(start_row, end_row):
+      start_col = max(0, start[1]-R+shift)
+      end_col = min(A.shape[1], start[1]+R+shift+1)
+      for j in xrange(start_col, end_col):
+        dist = dist_func(A, B, i, j))
+        costs[0] = cost_mat[i, j]       # match (0)
+        costs[1] = cost_mat[i, j + 1]   # insertion (1)
+        costs[2] = cost_mat[i + 1, j]   # deletion (2)
+        i_penalty = i_min3(costs)
+        traceback_mat[i, j] = i_penalty
+        cost_mat[i + 1, j + 1] = dist + costs[i_penalty]
+      shift += 1
+
+  return cost_mat, traceback_mat
+
+
+  # def diagonal_band(np.ndarray A, tuple start, int R=1):
+  #     cdef int ln = max(A.shape) - 1
+  #     cdef int min_len = min(A.shape)
+  #
+  #     cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
+  #     cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
+  #     cdef shift = 0 if start[0] <= start[1] else -R
+  #
+  #     cdef int i, j
+  #     cdef int start_col, end_col
+  #
+  #     for i in xrange(start_row, end_row):
+  #         start_col = max(0, start[1]-R+shift)
+  #         end_col = min(A.shape[1], start[1]+R+shift+1)
+  #         for j in xrange(start_col, end_col):
+  #             A[i, j]=1
+  #         shift += 1
+  #     return A
+
+
+
+def diagonal_starts(int Nx, int Ny, int R=1):
+  '''
+  An auxillairy function based on equqtions mentioned in the
+  "Unsupervised Pattern Discovery..."
+
+  '''
+  cdef int i, j
+
+  cdef list diagonals = []
+
+  cdef int lim1 = np.floor((Nx-1)/2*R+1).astype(int) - 1#+ 1
+  cdef int lim2 = np.floor((Ny-1)/2*R+1).astype(int) - 1#+ 1
+
+  for i in xrange(0, lim1):
+      diagonals.append(((2+1*R)*i, 0))
+
+  for j in xrange(1, lim2):
+      diagonals.append((0, (2*R+1)*j))
+
+  return diagonals

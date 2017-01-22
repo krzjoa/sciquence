@@ -42,6 +42,8 @@ def diagonal_starts(A, R=1):
 
 
 def diag_ends(A, diag_starts):
+
+    # FIXME: nie dziala!!!!
     '''
 
     Diagonal starts
@@ -56,8 +58,8 @@ def diag_ends(A, diag_starts):
 
     '''
     ends = []
-    #min_diag = A.shape[1] - 1
-    min_diag = max(A.shape) - 1
+    min_diag = A.shape[1] - 1
+    #min_diag = max(A.shape) - 1
     for s in diag_starts:
         diff = abs(min_diag-max(s))
         cross = min_diag if diff >= min_diag else diff
@@ -66,20 +68,22 @@ def diag_ends(A, diag_starts):
 
 
 
-def diagonal_band(A, start, end, R):
-    min_diag = max(A.shape) - 1
+def diagonal_band(A, start, R):
+    ln = max(A.shape) - 1
+    min_len = min(A.shape)
 
     # Limits
-    diff = abs(min_diag - max(start))
+    diff = abs(ln - max(start))
+
 
     # Prawidlowo!
     start_row = start[0] - R if start[0] - R >= 0 else 0
-    end_row = end[0] + R+1 if end[0] + R < A.shape[0] else A.shape[0]
+    end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
 
     print start_row, end_row
 
     # Poprawic warunek -R
-    shift = 0 if start[0] < start[1] else -R
+    shift = 0 if start[0] <= start[1] else -R
 
     for i in xrange(start_row, end_row):
         start_col = max(0, start[1]-R+shift)
@@ -87,7 +91,6 @@ def diagonal_band(A, start, end, R):
         for j in xrange(start_col, end_col):
             A[i, j]=1
         shift += 1
-
     return A
 
 

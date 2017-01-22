@@ -1,5 +1,6 @@
 import numpy as np
 from sciquence.utils import diagonal_starts, diag_ends, diagonal_band
+from sciquence.dtw import segmental_dtw
 #
 #
 # #X = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
@@ -13,16 +14,14 @@ Z = np.zeros((5, 10))
 print Z
 
 ds =  diagonal_starts(Z, 1)
-
 de =  diag_ends(Z, ds)
 
-print Z
 
-print diagonal_band(Z, ds[1], de[1], 1)
+print diagonal_band(Z, ds[0], 1)
 
 
 print ds
-print de
+
 
 
 
