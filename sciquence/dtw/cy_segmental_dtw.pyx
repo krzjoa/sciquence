@@ -12,7 +12,7 @@ cimport numpy as np
 
 
 def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
-                  int path_window=5, metic='cosine'):
+                  int diag_margin=5, str metic='cosine'):
   '''
   Find similarities between two sequences. Segmental DTW algorithm extends idea
   from Dynamic Time Warping method, and looks for the best warping path not only
@@ -77,3 +77,6 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   #     average.append(avg)
 
   # return matchings, average, costs, paths
+
+
+  ########### Auxiliary functions ##############

@@ -1,24 +1,31 @@
 import numpy as np
-from sciquence.utils import diagonal_starts, diag_ends
+from sciquence.utils import diagonal_starts, diag_ends, diagonal_band
+#
+#
+# #X = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
+#
+#
 
+# Popsute konce
 
-#X = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
+Z = np.zeros((5, 10))
 
+print Z
 
-Z = np.zeros((5, 5))
+ds =  diagonal_starts(Z, 1)
 
-ds =  diagonal_starts(Z, 0)
-#print find_diagonals(Z,1)
 de =  diag_ends(Z, ds)
 
 print Z
+
+print diagonal_band(Z, ds[1], de[1], 1)
 
 
 print ds
 print de
 
 
-#
+
 # def find_diag_ends(M, diag_margin=1):
 #     diag_ends = []
 #
@@ -55,6 +62,9 @@ print de
 #     for i in xrange(0, M.shape[])
 
 
+# x = [1,2,3,4,5]
+#
+# sl = slice(1, 5, 2)
 
 
 

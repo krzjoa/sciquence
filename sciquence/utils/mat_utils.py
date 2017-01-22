@@ -9,9 +9,8 @@
 import numpy as np
 
 
-def diagonal_starts(A, R):
+def diagonal_starts(A, R=1):
     '''
-
 
 
     Parameters
@@ -28,7 +27,7 @@ def diagonal_starts(A, R):
 
     diagonals = []
 
-    R=1
+    #R=1
 
     lim1 = np.floor((Nx-1)/2*R+1).astype(int) - 1#+ 1
     lim2 = np.floor((Ny-1)/2*R+1).astype(int) - 1#+ 1
@@ -57,18 +56,39 @@ def diag_ends(A, diag_starts):
 
     '''
     ends = []
-    min_len =min(A.shape)
-    min_cross = min_len - 1
+    #min_diag = A.shape[1] - 1
+    min_diag = max(A.shape) - 1
     for s in diag_starts:
-        diff = abs(min_len-max(s)-1)
-        cross = min_cross if diff >= min_cross else diff
+        diff = abs(min_diag-max(s))
+        cross = min_diag if diff >= min_diag else diff
         ends.append((s[0]+cross, s[1]+cross))
     return ends
 
 
 
-def diagonal_bands():
-    pass
+def diagonal_band(A, start, end, R):
+    min_diag = max(A.shape) - 1
+
+    # Limits
+    diff = abs(min_diag - max(start))
+
+    # Prawidlowo!
+    start_row = start[0] - R if start[0] - R >= 0 else 0
+    end_row = end[0] + R+1 if end[0] + R < A.shape[0] else A.shape[0]
+
+    print start_row, end_row
+
+    # Poprawic warunek -R
+    shift = 0 if start[0] < start[1] else -R
+
+    for i in xrange(start_row, end_row):
+        start_col = max(0, start[1]-R+shift)
+        end_col = min(A.shape[1], start[1]+R+shift+1)
+        for j in xrange(start_col, end_col):
+            A[i, j]=1
+        shift += 1
+
+    return A
 
 
 # def find_diagonals(M, diag_margin=0):
