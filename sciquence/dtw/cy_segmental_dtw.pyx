@@ -1,10 +1,11 @@
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
+# Trace
 # Author: Krzysztof Joachimiak
 #
 # License: MIT
-
+#
 #cython: boundscheck=False, wraparound=False
 
 import numpy as np
@@ -61,9 +62,9 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   cdef list all_diagonal_starts = diagonal_starts(N, M, diag_margin)
   cdef list best_path_fragments = []
 
-  # Pętla for iterująca po wszystkich możliwych początkach
+  # Iterating all the diagonals
   for idx, diag_start in enumerate(all_diagonal_starts):
-    # Liczę koszt na przekątnych
+    # Computing costs on the diagonals
     cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
     print "Diagonal checked"
     # Traceback po optymalnej ścieżce
@@ -171,46 +172,3 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
       shift += 1
 
   return cost_mat, traceback_mat
-
-
-  # def diagonal_band(np.ndarray A, tuple start, int R=1):
-  #     cdef int ln = max(A.shape) - 1
-  #     cdef int min_len = min(A.shape)
-  #
-  #     cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
-  #     cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
-  #     cdef shift = 0 if start[0] <= start[1] else -R
-  #
-  #     cdef int i, j
-  #     cdef int start_col, end_col
-  #
-  #     for i in xrange(start_row, end_row):
-  #         start_col = max(0, start[1]-R+shift)
-  #         end_col = min(A.shape[1], start[1]+R+shift+1)
-  #         for j in xrange(start_col, end_col):
-  #             A[i, j]=1
-  #         shift += 1
-  #     return A
-
-
-
-def diagonal_starts(int Nx, int Ny, int R=1):
-  '''
-  An auxillairy function based on equqtions mentioned in the
-  "Unsupervised Pattern Discovery..."
-
-  '''
-  cdef int i, j
-
-  cdef list diagonals = []
-
-  cdef int lim1 = np.floor((Nx-1)/2*R+1).astype(int) - 1#+ 1
-  cdef int lim2 = np.floor((Ny-1)/2*R+1).astype(int) - 1#+ 1
-
-  for i in xrange(0, lim1):
-      diagonals.append(((2+1*R)*i, 0))
-
-  for j in xrange(1, lim2):
-      diagonals.append((0, (2*R+1)*j))
-
-  return diagonals

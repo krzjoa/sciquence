@@ -3,9 +3,11 @@ sciquence.sequences
 
 Sequence cutting & trimming
 ---------------------------
-.. autosummary::
-    :toctree: generated/
 
+.. currentmodule:: sciquence.sequences
+.. autosummary::
+    :toctree:
+    
     seq
     nseq
     pseq
