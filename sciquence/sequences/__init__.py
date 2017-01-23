@@ -1,5 +1,5 @@
 from sequences_utils import seq, specseq, nseq, pseq, lseq_equal
-from cy_searching import longest_segment, max_avg_seq
+from cy_searching import mslc, longest_segment, max_avg_seq
 
 
 __all__ = ['seq',
@@ -7,6 +7,7 @@ __all__ = ['seq',
            'nseq',
            'pseq',
            'lseq_equal',
+           'mslc',
            'longest_segment',
            'max_avg_seq'
            ]
