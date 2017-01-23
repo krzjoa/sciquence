@@ -1,6 +1,6 @@
 import unittest
 from sciquence.sliding_window import WindowMaker, SlidingWindow
-from sciquence.sequences import seq_equals
+from sciquence.sequences import lseq_equal
 import numpy as np
 
 
@@ -26,7 +26,7 @@ class TestWindowMaker(unittest.TestCase):
             np.array([12, 13, 14])
         ]
 
-        assert seq_equals(sw.transform(X_dummy), expected1)
+        assert lseq_equal(sw.transform(X_dummy), expected1)
 
         # Test 2
         sw.shift_ = 3
@@ -35,7 +35,7 @@ class TestWindowMaker(unittest.TestCase):
                      np.array([ 4,  5, 11]),
                      np.array([12, 13, 14])]
 
-        assert seq_equals(sw.transform(X_dummy), expected2)
+        assert lseq_equal(sw.transform(X_dummy), expected2)
 
 
     def test_windows(self):
