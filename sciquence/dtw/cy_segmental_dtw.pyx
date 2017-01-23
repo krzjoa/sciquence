@@ -161,7 +161,7 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
       start_col = max(0, start[1]-R+shift)
       end_col = min(A.shape[1], start[1]+R+shift+1)
       for j in xrange(start_col, end_col):
-        dist = dist_func(A, B, i, j))
+        dist = dist_func(A, B, i, j)
         costs[0] = cost_mat[i, j]       # match (0)
         costs[1] = cost_mat[i, j + 1]   # insertion (1)
         costs[2] = cost_mat[i + 1, j]   # deletion (2)

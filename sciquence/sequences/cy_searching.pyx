@@ -220,7 +220,7 @@ def max_avg_seq(np.ndarray A, int L):
   >>> print Z[9:12]
   [67  1  3]
   # In last example, we replace -3 with 600
-  >> V = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
+  >>> V = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
   (0, 3)
   >>> print V[0:3]
   [ -1  -2 600]

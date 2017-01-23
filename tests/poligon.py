@@ -6,23 +6,26 @@ from sciquence.dtw import segmental_dtw
 # #X = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
 #
 #
+#
+# # Popsute konce
+#
+# Z = np.zeros((5, 10))
+#
+# print Z
+#
+# ds =  diagonal_starts(Z, 1)
+# de =  diag_ends(Z, ds)
+#
+#
+# print diagonal_band(Z, ds[0], 1)
+#
+#
+# print ds
+#
 
-# Popsute konce
-
-Z = np.zeros((5, 10))
-
-print Z
-
-ds =  diagonal_starts(Z, 1)
-de =  diag_ends(Z, ds)
-
-
-print diagonal_band(Z, ds[0], 1)
-
-
-print ds
-
-
+from sciquence import sequences as sq
+x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+print sq.specseq(x, 44)
 
 
 # def find_diag_ends(M, diag_margin=1):
