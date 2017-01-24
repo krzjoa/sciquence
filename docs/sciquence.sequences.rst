@@ -5,9 +5,10 @@ Sequence cutting & trimming
 ---------------------------
 
 .. currentmodule:: sciquence.sequences
+
 .. autosummary::
     :toctree:
-    
+
     seq
     nseq
     pseq

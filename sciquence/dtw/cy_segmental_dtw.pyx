@@ -11,6 +11,7 @@
 import numpy as np
 cimport numpy as np
 from libc.math cimport sqrt
+from cy_utils cimport diagonal_starts
 
 cdef extern from "float.h":
     double DBL_MAX
