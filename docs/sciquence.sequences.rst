@@ -17,16 +17,8 @@ Sequence cutting & trimming
 Searching sequences
 -------------------
 .. autosummary::
-    :toctree: generated/
+    :toctree: 
 
     mslc
     longest_segment
     max_avg_seq
-
-
-
-
-.. automodule:: sciquence.sequences
-    :members:
-    :undoc-members:
-    :show-inheritance:
