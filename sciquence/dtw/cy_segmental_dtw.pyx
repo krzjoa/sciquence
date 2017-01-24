@@ -60,14 +60,14 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   cdef int cost_mat, traceback_mat
   cdef list path
 
-  cdef list all_diagonal_starts = diagonal_starts(N, M, diag_margin)
+  #cdef list all_diagonal_starts = diagonal_starts(N, M, diag_margin)
   cdef list best_path_fragments = []
 
   # Iterating all the diagonals
   #for idx, diag_start in enumerate(all_diagonal_starts):
     # Computing costs on the diagonals
 #cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
-    print "Diagonal checked"
+    #print "Diagonal checked"
     # Traceback po optymalnej ścieżce
     #path = traceback(diag_start , traceback_mat)
 

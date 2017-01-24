@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee2ea1b7-0293-4227-8ed4-e47b1342a5d7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sciquence/dtw/cy_segmental_dtw.pyx" afterPath="$PROJECT_DIR$/sciquence/dtw/cy_segmental_dtw.pyx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
-    </list>
+    <list default="true" id="ee2ea1b7-0293-4227-8ed4-e47b1342a5d7" name="Default" comment="" />
     <ignored path="sciquence.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
