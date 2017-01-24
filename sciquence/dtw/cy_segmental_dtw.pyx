@@ -11,7 +11,7 @@
 import numpy as np
 cimport numpy as np
 from libc.math cimport sqrt
-from cy_utils cimport diagonal_starts
+#from cy_utils cimport diagonal_starts
 
 cdef extern from "float.h":
     double DBL_MAX
@@ -64,9 +64,9 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   cdef list best_path_fragments = []
 
   # Iterating all the diagonals
-  for idx, diag_start in enumerate(all_diagonal_starts):
+  #for idx, diag_start in enumerate(all_diagonal_starts):
     # Computing costs on the diagonals
-    cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
+#cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
     print "Diagonal checked"
     # Traceback po optymalnej ścieżce
     #path = traceback(diag_start , traceback_mat)
