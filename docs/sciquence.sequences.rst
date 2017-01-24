@@ -1,8 +1,8 @@
 sciquence.sequences
 ===================
 
-Sequence cutting & trimming
----------------------------
+Cutting & trimming
+------------------
 
 .. currentmodule:: sciquence.sequences
 
@@ -12,12 +12,21 @@ Sequence cutting & trimming
     seq
     nseq
     pseq
+    specseq
 
+Comparing
+---------
 
-Searching sequences
--------------------
 .. autosummary::
-    :toctree: 
+    :toctree:
+
+    lseq_equal
+
+
+Searching
+---------
+.. autosummary::
+    :toctree:
 
     mslc
     longest_segment
