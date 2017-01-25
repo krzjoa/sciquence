@@ -1,7 +1,23 @@
 sciquence.sliding_window
 ========================
 
-.. automodule:: sciquence.sliding_window
-    :members:
-    :undoc-members:
-    :show-inheritance:
+
+Generators
+----------
+
+.. currentmodule:: sciquence.sliding_window
+
+.. autosummary::
+    :toctree:
+
+    wingen
+    multi_wingen
+
+
+Seekers
+-------
+
+.. autosummary::
+    :toctree:
+
+    seeker

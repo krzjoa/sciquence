@@ -1,7 +1,13 @@
 sciquence.dtw
 =============
 
-.. automodule:: sciquence.dtw
-    :members:
-    :undoc-members:
-    :show-inheritance:
+Similarities
+------------
+
+.. currentmodule:: sciquence.dtw
+
+
+.. autosummary::
+    :toctree:
+
+    segmental_dtw

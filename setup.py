@@ -64,9 +64,6 @@ extensions = [
     ]
 
 extensions =  cythonize(extensions)
-#extensions =  cythonize("sciquence/sequences/cy_searching.pyx", include_path = [np.get_include()])
-
-#print extensions
 
 
 # Classifiers

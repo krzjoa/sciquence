@@ -19,9 +19,11 @@ cdef extern from "float.h":
 def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
                   int diag_margin=5, str metric='cosine'):
   '''
-  Find similarities between two sequences. Segmental DTW algorithm extends idea
-  from Dynamic Time Warping method, and looks for the best warping path not only
-  on the main diagonal, but also on the other. It facilitates performing not only
+  Find similarities between two sequences.
+
+  Segmental DTW algorithm extends ide  of Dynamic Time Warping method,
+  and looks for the best warping path not only on the main diagonal,
+  but also on the other. It facilitates performing not only
   the comparision of the whole sequences, but also discovering similarities
   between subsequences of given sequences A and B.
 
@@ -55,31 +57,35 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   https://groups.csail.mit.edu/sls/publications/2006/Park_Thesis.pdf
 
   '''
+
   cdef int N = len(A)
   cdef int M = len(B)
-  cdef int cost_mat, traceback_mat
+  cdef int i
+  #cdef np.ndarray cost_mat, traceback_mat
+  #cdef double[:, ::1] distance_mat = dist_mat(s, t, metric=metric)
   cdef list path
 
-  #cdef list all_diagonal_starts = diagonal_starts(N, M, diag_margin)
+  cdef list diag_starts = diagonal_starts(N, M, diag_margin)
   cdef list best_path_fragments = []
 
-  # Iterating all the diagonals
-  #for idx, diag_start in enumerate(all_diagonal_starts):
-    # Computing costs on the diagonals
-#cost_mat, traceback_mat = dtw_distance(A, B, diag_start, diag_margin, metric)
-    #print "Diagonal checked"
+  # Computing costs on the diagonals
+  for i in range(len(diag_starts)):
+
+    cost_mat, traceback_mat = dtw_distance(A, B, diag_starts[i], diag_margin, metric)
+
     # Traceback po optymalnej ścieżce
-    #path = traceback(diag_start , traceback_mat)
+    #path = traceback(diag_starts[i] , traceback_mat)
 
-    # if len(path) >=path_len:
-    #   bts, avg = max_avg_seq(distance_mat, path, path_len)
-    #   matchings.append(bts)
-    #   average.append(avg)
+    # if len(path) >=min_path_len:
+    #     pass
+       #bts, avg = max_avg_seq(distance_mat, path, path_len)
+       #best_path_fragments.append(bts)
+       #average.append(avg)
 
-  return N
+  return best_path_fragments
 
 
-  ########### Auxiliary functions ##############
+########### Auxiliary functions ##############
 
 cdef inline double cosine_dist(
         double[:, ::1] x, double[:, ::1] y, Py_ssize_t x_i, Py_ssize_t y_i
@@ -122,6 +128,7 @@ cdef inline Py_ssize_t i_min3(double[3] v):
 
 
 def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='cosine'):
+
   cdef int N, M, Nr
   cdef Py_ssize_t i_penalty
 
@@ -134,12 +141,12 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
 
   cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
   cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
-  cdef shift = 0 if start[0] <= start[1] else -R
+  cdef int shift = 0 if start[0] <= start[1] else -R
 
   cdef int i, j
   cdef int start_col, end_col
 
-  cdef float dist
+  #cdef double dist
 
   cdef metric_ptr dist_func
   if metric == "cosine":
@@ -153,7 +160,7 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
   M = B.shape[0]
 
   # Initialize the cost matrix
-  cost_mat = np.zeros((N + 1, M + 1)) + DBL_MAX
+  cost_mat = np.zeros((N + 1, M + 1), dtype=np.double) + DBL_MAX
   cost_mat[start[0], start[1]] = 0.
 
   # Fill the cost matrix
@@ -163,7 +170,7 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
       start_col = max(0, start[1]-R+shift)
       end_col = min(A.shape[1], start[1]+R+shift+1)
       for j in xrange(start_col, end_col):
-        dist = dist_func(A, B, i, j)
+        dist = dist_func(A.astype(np.double), B.astype(np.double), i, j)
         costs[0] = cost_mat[i, j]       # match (0)
         costs[1] = cost_mat[i, j + 1]   # insertion (1)
         costs[2] = cost_mat[i + 1, j]   # deletion (2)
@@ -173,3 +180,52 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
       shift += 1
 
   return cost_mat, traceback_mat
+
+######
+
+def diagonal_starts(int Nx, int Ny, int R=1):
+  '''
+  An auxillairy function based on equqtions mentioned in the
+  "Unsupervised Pattern Discovery..."
+
+  '''
+  cdef int i, j
+
+  cdef list diagonals = []
+
+  cdef int lim1 = np.floor((Nx-1)/(2*R+1)).astype(int) + 1
+  cdef int lim2 = np.floor((Ny-1)/(2*R+1)).astype(int) + 1
+
+  for i in xrange(0, lim1):
+      diagonals.append(((2*R+1)*i, 0))
+
+  for j in xrange(1, lim2):
+      diagonals.append((0, (2*R+1)*j))
+
+  return diagonals
+
+
+
+  def dist_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
+
+    cdef int N, M, Nr
+    cdef Py_ssize_t i, j, i_penalty
+
+    cdef double[:, ::1] cost_mat
+    cdef double[3] costs
+
+    N = s.shape[0]
+    M = t.shape[0]
+
+    cdef metric_ptr dist_func
+    if metric == "cosine":
+        dist_func = &cosine_dist
+    elif metric == "euclidean":
+        dist_func = &euclidean_dist
+
+    dist_mat = np.zeros((N, M))
+
+    for i in range(N):
+      for j in range(M):
+        dist_mat[i, j] = dist_func(s, t, i, j)
+    return dist_mat

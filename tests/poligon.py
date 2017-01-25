@@ -1,5 +1,5 @@
 import numpy as np
-from sciquence.utils import diagonal_starts, diag_ends, diagonal_band
+from sciquence.utils import diagonal_starts, diagonal_band
 from sciquence.dtw import segmental_dtw
 #
 #
@@ -7,25 +7,31 @@ from sciquence.dtw import segmental_dtw
 #
 #
 #
-# # Popsute konce
-#
-# Z = np.zeros((5, 10))
-#
-# print Z
-#
-# ds =  diagonal_starts(Z, 1)
-# de =  diag_ends(Z, ds)
-#
-#
-# print diagonal_band(Z, ds[0], 1)
-#
-#
-# print ds
+# Popsute konce
+
+Z = np.zeros((200, 222))
+
+print Z
+
+ds =  diagonal_starts(Z, 1)
+
+
+
+print diagonal_band(Z, ds[5], 1)
+
+
+
+print ds
 #
 
-from sciquence import sequences as sq
-x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
-print sq.specseq(x, 44)
+# from sciquence import sequences as sq
+# x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+# print sq.specseq(x, 44)
+
+
+
+
+
 
 
 # def find_diag_ends(M, diag_margin=1):

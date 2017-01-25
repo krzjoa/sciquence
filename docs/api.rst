@@ -8,3 +8,4 @@ sciquence API
    sciquence.sequences
    sciquence.dtw
    sciquence.sliding_window
+   sciquence.text_processing

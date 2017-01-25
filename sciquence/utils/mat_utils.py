@@ -29,11 +29,13 @@ def diagonal_starts(A, R=1):
 
     #R=1
 
-    lim1 = np.floor((Nx-1)/2*R+1).astype(int) - 1#+ 1
-    lim2 = np.floor((Ny-1)/2*R+1).astype(int) - 1#+ 1
+    lim1 = np.floor((Nx-1)/(2*R+1)).astype(int)  + 1
+    lim2 = np.floor((Ny-1)/(2*R+1)).astype(int) + 1
+
+    print lim1, lim2
 
     for i in xrange(0, lim1):
-        diagonals.append(((2+1*R)*i, 0))
+        diagonals.append(((2*R+1)*i, 0))
 
     for i in xrange(1, lim2):
         diagonals.append((0, (2*R+1)*i))
@@ -41,30 +43,30 @@ def diagonal_starts(A, R=1):
     return diagonals
 
 
-def diag_ends(A, diag_starts):
-
-    # FIXME: nie dziala!!!!
-    '''
-
-    Diagonal starts
-
-    Parameters
-    ----------
-    A
-    diag_starts
-
-    Returns
-    -------
-
-    '''
-    ends = []
-    min_diag = A.shape[1] - 1
-    #min_diag = max(A.shape) - 1
-    for s in diag_starts:
-        diff = abs(min_diag-max(s))
-        cross = min_diag if diff >= min_diag else diff
-        ends.append((s[0]+cross, s[1]+cross))
-    return ends
+# def diag_ends(A, diag_starts):
+#
+#     # FIXME: nie dziala!!!!
+#     '''
+#
+#     Diagonal starts
+#
+#     Parameters
+#     ----------
+#     A
+#     diag_starts
+#
+#     Returns
+#     -------
+#
+#     '''
+#     ends = []
+#     min_diag = A.shape[1] - 1
+#     #min_diag = max(A.shape) - 1
+#     for s in diag_starts:
+#         diff = abs(min_diag-max(s))
+#         cross = min_diag if diff >= min_diag else diff
+#         ends.append((s[0]+cross, s[1]+cross))
+#     return ends
 
 
 
