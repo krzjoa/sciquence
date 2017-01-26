@@ -11,6 +11,7 @@
 import numpy as np
 cimport numpy as np
 from libc.math cimport sqrt
+#from sciquence.sequences cimport cy_searching as search
 #from cy_utils cimport diagonal_starts
 
 cdef extern from "float.h":
@@ -58,11 +59,17 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
 
   '''
 
+  # Limits
   cdef int N = len(A)
   cdef int M = len(B)
   cdef int i
-  #cdef np.ndarray cost_mat, traceback_mat
-  #cdef double[:, ::1] distance_mat = dist_mat(s, t, metric=metric)
+
+  # Matrices
+  # cdef double[:, ::1] cost_mat, traceback_mat
+  # cdef np.ndarray cost_mat, traceback_mat
+  # TODO: optimize - distance should be added parallely,
+  cdef double[:, ::1] distance_mat = dist_mat(A.astype(np.double), B.astype(np.double), metric=metric)
+
   cdef list path
 
   cdef list diag_starts = diagonal_starts(N, M, diag_margin)
@@ -70,17 +77,16 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
 
   # Computing costs on the diagonals
   for i in range(len(diag_starts)):
-
-    cost_mat, traceback_mat = dtw_distance(A, B, diag_starts[i], diag_margin, metric)
+    cost_mat, traceback_mat, end_point = dtw_distance(A, B, diag_starts[i], diag_margin, metric)
 
     # Traceback po optymalnej ścieżce
-    #path = traceback(diag_starts[i] , traceback_mat)
-
-    # if len(path) >=min_path_len:
-    #     pass
-       #bts, avg = max_avg_seq(distance_mat, path, path_len)
-       #best_path_fragments.append(bts)
-       #average.append(avg)
+    path = traceback(diag_starts[i], end_point, traceback_mat)
+    best_path_fragments.append(path)
+    # Searching best fragments of paths
+    # if len(path) >= min_path_len:
+    #   bts, avg = mavs(distance_mat, path, min_path_len)
+    #   best_path_fragments.append(bts)
+      #average.append(avg)
 
   return best_path_fragments
 
@@ -130,24 +136,33 @@ cdef inline Py_ssize_t i_min3(double[3] v):
 def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='cosine'):
 
   cdef int N, M, Nr
-  cdef Py_ssize_t i_penalty
+  cdef Py_ssize_t i_penalty, i, j
 
   cdef double[:, ::1] cost_mat
   cdef double[3] costs
 
+  # Pomieszane nazewnictwo
+  N = A.shape[0]
+  M = B.shape[0]
+
+  # Initialize the cost matrix
+  cost_mat = np.zeros((N + 1, M + 1), dtype=np.double) + DBL_MAX
+  cost_mat[start[0], start[1]] = 0.
+
+  # Initialize traceback matrix
+  traceback_mat = np.zeros((N, M), dtype=np.uint16)
+
   # Variables for controlling diagonal coordinates
-  cdef int ln = max(A.shape[0], A.shape[1]) - 1
-  cdef int min_len = min(A.shape[0], A.shape[1])
+  cdef int ln = max(traceback_mat.shape[0], traceback_mat.shape[1]) - 1
+  cdef int min_len = min(traceback_mat.shape[0], traceback_mat.shape[1])
 
   cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
-  cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < A.shape[0] else A.shape[0]
+  cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < traceback_mat.shape[0] else traceback_mat.shape[0]
   cdef int shift = 0 if start[0] <= start[1] else -R
 
-  cdef int i, j
   cdef int start_col, end_col
 
   #cdef double dist
-
   cdef metric_ptr dist_func
   if metric == "cosine":
       dist_func = &cosine_dist
@@ -156,20 +171,11 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
   else:
       raise ValueError("Unrecognized metric.")
 
-  N = A.shape[0]
-  M = B.shape[0]
-
-  # Initialize the cost matrix
-  cost_mat = np.zeros((N + 1, M + 1), dtype=np.double) + DBL_MAX
-  cost_mat[start[0], start[1]] = 0.
-
-  # Fill the cost matrix
-  traceback_mat = np.zeros((N, M), dtype=np.uint16)
-
-  for i in xrange(start_row, end_row):
+  for i in range(start_row, end_row):
       start_col = max(0, start[1]-R+shift)
-      end_col = min(A.shape[1], start[1]+R+shift+1)
-      for j in xrange(start_col, end_col):
+      end_col = min(traceback_mat.shape[1], start[1]+R+shift+1)
+      for j in range(start_col, end_col):
+        print start_row, start_col, end_row, end_col, i, j
         dist = dist_func(A.astype(np.double), B.astype(np.double), i, j)
         costs[0] = cost_mat[i, j]       # match (0)
         costs[1] = cost_mat[i, j + 1]   # insertion (1)
@@ -179,7 +185,7 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
         cost_mat[i + 1, j + 1] = dist + costs[i_penalty]
       shift += 1
 
-  return cost_mat, traceback_mat
+  return cost_mat, traceback_mat, (end_row-1, end_col-1)
 
 ######
 
@@ -205,27 +211,60 @@ def diagonal_starts(int Nx, int Ny, int R=1):
   return diagonals
 
 
+def dist_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
 
-  def dist_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
+  cdef int N, M, Nr
+  cdef Py_ssize_t i, j
 
-    cdef int N, M, Nr
-    cdef Py_ssize_t i, j, i_penalty
+  cdef double[:, ::1] cost_mat
+  cdef double[3] costs
 
-    cdef double[:, ::1] cost_mat
-    cdef double[3] costs
+  N = s.shape[0]
+  M = t.shape[0]
 
-    N = s.shape[0]
-    M = t.shape[0]
+  cdef metric_ptr dist_func
+  if metric == "cosine":
+      dist_func = &cosine_dist
+  elif metric == "euclidean":
+      dist_func = &euclidean_dist
 
-    cdef metric_ptr dist_func
-    if metric == "cosine":
-        dist_func = &cosine_dist
-    elif metric == "euclidean":
-        dist_func = &euclidean_dist
+  dist_mat = np.zeros((N, M))
 
-    dist_mat = np.zeros((N, M))
+  for i in range(N):
+    for j in range(M):
+      dist_mat[i, j] = dist_func(s, t, i, j)
+  return dist_mat
 
-    for i in range(N):
-      for j in range(M):
-        dist_mat[i, j] = dist_func(s, t, i, j)
-    return dist_mat
+
+############# Traceback ################
+
+def traceback(start_point, end_point,  traceback_mat):
+  i = end_point[0]
+  j = end_point[1]
+  cdef list path = [(i, j)]
+  while i > start_point[0] or j > start_point[0]:
+      tb_type = traceback_mat[i, j]
+      if tb_type == 0:
+          # Match
+          i = i - 1
+          j = j - 1
+      elif tb_type == 1:
+          # Insertion
+          i = i - 1
+      elif tb_type == 2:
+          # Deletion
+          j = j - 1
+      path.append((i, j))
+  return path
+
+########## Maximal average sum ##########
+
+# def mavs(dist_mat, path, seqlen):
+#   cost_path = np.array([dist_mat[i[0], i[1]] for i in path])
+#   i, j = search.max_avg_seq(cost_path, seqlen)
+#   if i < len(path) and j < len(path):
+#       fragment = np.array(path)[i:j+1]
+#       print "Found path", len(fragment)
+#       return fragment, np.mean(fragment)
+#   else:
+#       return [], []

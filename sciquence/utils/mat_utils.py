@@ -91,6 +91,7 @@ def diagonal_band(A, start, R):
         start_col = max(0, start[1]-R+shift)
         end_col = min(A.shape[1], start[1]+R+shift+1)
         for j in xrange(start_col, end_col):
+            print start_row, start_col, end_row, end_col
             A[i, j]=1
         shift += 1
     return A

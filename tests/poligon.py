@@ -9,15 +9,15 @@ from sciquence.dtw import segmental_dtw
 #
 # Popsute konce
 
-Z = np.zeros((200, 222))
+Z = np.zeros((101, 129))
 
 print Z
 
 ds =  diagonal_starts(Z, 1)
 
 
-
-print diagonal_band(Z, ds[5], 1)
+for i in ds:
+    print diagonal_band(Z, i, 5)
 
 
 
