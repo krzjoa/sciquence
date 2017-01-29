@@ -11,8 +11,8 @@
 import numpy as np
 cimport numpy as np
 from libc.math cimport sqrt
-#from sciquence.sequences cimport cy_searching as search
-#from cy_utils cimport diagonal_starts
+from cython.operator import postincrement as inc
+
 
 cdef extern from "float.h":
     double DBL_MAX
@@ -65,33 +65,37 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
   cdef int i
 
   # Matrices
-  # cdef double[:, ::1] cost_mat, traceback_mat
-  # cdef np.ndarray cost_mat, traceback_mat
-  # TODO: optimize - distance should be added parallely,
-  cdef double[:, ::1] distance_mat = dist_mat(A.astype(np.double), B.astype(np.double), metric=metric)
+  cdef double[:, ::1] cost_mat
+  cdef unsigned short[:, ::1] traceback_mat
+  #cdef np.ndarray cost_mat, traceback_mat
 
+  # TODO: optimize - distance should be added parallely,
+  cdef double[:, ::1] dist_mat = distance_mat(A.astype(np.double), B.astype(np.double), metric=metric)
   cdef list path
 
   cdef list diag_starts = diagonal_starts(N, M, diag_margin)
   cdef list best_path_fragments = []
 
+  cdef tuple end_point
+
   # Computing costs on the diagonals
   for i in range(len(diag_starts)):
-    cost_mat, traceback_mat, end_point = dtw_distance(A, B, diag_starts[i], diag_margin, metric)
+    cost_mat, traceback_mat, end_point = dtw_distance(dist_mat, diag_starts[i], diag_margin, metric)
 
     # Traceback po optymalnej ścieżce
     path = traceback(diag_starts[i], end_point, traceback_mat)
     best_path_fragments.append(path)
+
     # Searching best fragments of paths
-    # if len(path) >= min_path_len:
-    #   bts, avg = mavs(distance_mat, path, min_path_len)
-    #   best_path_fragments.append(bts)
+    if len(path) >= min_path_len:
+       bts, avg = mavs(distance_mat, path, min_path_len)
+       best_path_fragments.append(bts)
       #average.append(avg)
 
   return best_path_fragments
 
 
-########### Auxiliary functions ##############
+########### Metrics ##############
 
 cdef inline double cosine_dist(
         double[:, ::1] x, double[:, ::1] y, Py_ssize_t x_i, Py_ssize_t y_i
@@ -106,7 +110,7 @@ cdef inline double cosine_dist(
         dot += x[x_i, i] * y[y_i, i]
         norm_x += x[x_i, i]*x[x_i, i]
         norm_y += y[y_i, i]*y[y_i, i]
-      #return 1. - dot/(sqrt(norm_x) * sqrt(norm_y))
+    #return 1. - dot/(sqrt(norm_x) * sqrt(norm_y))
     return dot/(sqrt(norm_x) * sqrt(norm_y))
 
 cdef inline double euclidean_dist(
@@ -132,8 +136,9 @@ cdef inline Py_ssize_t i_min3(double[3] v):
       m = i
     return m
 
+############# Computing best diagonal paths ############
 
-def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='cosine'):
+def dtw_distance(double[:, ::1] dist_mat, tuple start, int R=1, str metric='cosine'):
 
   cdef int N, M, Nr
   cdef Py_ssize_t i_penalty, i, j
@@ -141,53 +146,47 @@ def dtw_distance(np.ndarray A, np.ndarray B, tuple start, int R=1, str metric='c
   cdef double[:, ::1] cost_mat
   cdef double[3] costs
 
-  # Pomieszane nazewnictwo
-  N = A.shape[0]
-  M = B.shape[0]
+  N = dist_mat.shape[0]
+  M = dist_mat.shape[0]
 
   # Initialize the cost matrix
-  cost_mat = np.zeros((N + 1, M + 1), dtype=np.double) + DBL_MAX
+  cost_mat = np.zeros((N + 1, M + 1)) + DBL_MAX
   cost_mat[start[0], start[1]] = 0.
 
   # Initialize traceback matrix
   traceback_mat = np.zeros((N, M), dtype=np.uint16)
 
   # Variables for controlling diagonal coordinates
-  cdef int ln = max(traceback_mat.shape[0], traceback_mat.shape[1]) - 1
-  cdef int min_len = min(traceback_mat.shape[0], traceback_mat.shape[1])
+  cdef int ln = max(dist_mat.shape[0], dist_mat.shape[1]) - 1
+  cdef int min_len = min(dist_mat.shape[0], dist_mat.shape[1])
 
   cdef int start_row = start[0] - R if start[0] - R >= 0 else 0
-  cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < traceback_mat.shape[0] else traceback_mat.shape[0]
+  cdef int end_row = start[0] + min_len + R+1 if start[0] + min_len + R < dist_mat.shape[0] else dist_mat.shape[0]
   cdef int shift = 0 if start[0] <= start[1] else -R
 
   cdef int start_col, end_col
 
-  #cdef double dist
-  cdef metric_ptr dist_func
-  if metric == "cosine":
-      dist_func = &cosine_dist
-  elif metric == "euclidean":
-      dist_func = &euclidean_dist
-  else:
-      raise ValueError("Unrecognized metric.")
-
   for i in range(start_row, end_row):
       start_col = max(0, start[1]-R+shift)
       end_col = min(traceback_mat.shape[1], start[1]+R+shift+1)
+
       for j in range(start_col, end_col):
-        print start_row, start_col, end_row, end_col, i, j
-        dist = dist_func(A.astype(np.double), B.astype(np.double), i, j)
+        dist = dist_mat[i, j]
         costs[0] = cost_mat[i, j]       # match (0)
         costs[1] = cost_mat[i, j + 1]   # insertion (1)
         costs[2] = cost_mat[i + 1, j]   # deletion (2)
         i_penalty = i_min3(costs)
         traceback_mat[i, j] = i_penalty
         cost_mat[i + 1, j + 1] = dist + costs[i_penalty]
-      shift += 1
+      inc(shift)
 
-  return cost_mat, traceback_mat, (end_row-1, end_col-1)
+  # Determining the end point
+  e0 = end_row - 1 if end_row - 1 >=0 else 0
+  e1 = end_col - 1 if end_col - 1 >=0 else 0
 
-######
+  return cost_mat, traceback_mat, (e0, e1)
+
+########## Diagonal start points ##########
 
 def diagonal_starts(int Nx, int Ny, int R=1):
   '''
@@ -210,8 +209,9 @@ def diagonal_starts(int Nx, int Ny, int R=1):
 
   return diagonals
 
+######### Computing distance matrix ##########
 
-def dist_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
+def distance_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
 
   cdef int N, M, Nr
   cdef Py_ssize_t i, j
@@ -234,7 +234,6 @@ def dist_mat(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
     for j in range(M):
       dist_mat[i, j] = dist_func(s, t, i, j)
   return dist_mat
-
 
 ############# Traceback ################
 

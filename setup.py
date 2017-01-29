@@ -60,7 +60,6 @@ extensions = [
               include_dirs=[np.get_include()]),
     Extension("sciquence.dtw.cy_segmental_dtw", ["sciquence/dtw/cy_segmental_dtw.pyx"],
               include_dirs=[np.get_include()]),
-
     ]
 
 extensions =  cythonize(extensions)
