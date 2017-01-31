@@ -87,9 +87,9 @@ def segmental_dtw(np.ndarray A, np.ndarray B, int min_path_len=10,
     best_path_fragments.append(path)
 
     # Searching best fragments of paths
-    if len(path) >= min_path_len:
-       bts, avg = mavs(distance_mat, path, min_path_len)
-       best_path_fragments.append(bts)
+    # if len(path) >= min_path_len:
+    #    bts, avg = mavs(distance_mat, path, min_path_len)
+    #    best_path_fragments.append(bts)
       #average.append(avg)
 
   return best_path_fragments

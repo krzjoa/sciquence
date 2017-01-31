@@ -129,3 +129,41 @@ class Generator(six.with_metaclass(ABCMeta, BaseEstimator)):
 class Miner(six.with_metaclass(ABCMeta, BaseEstimator)):
 
     _estimator_type = "miner"
+
+    @abstractmethod
+    def compare(self, A, B):
+        '''
+
+        Compare two sequences.
+
+        Parameters
+        ----------
+        A: ndarray (n_timesteps, n_features)
+            A numpy array
+        B: ndarray (n_timesteps, n_features)
+            A numpy array
+
+        Returns
+        -------
+
+
+
+        '''
+
+    @abstractmethod
+    def mine(self, X, P=None):
+        '''
+
+        Find similar patterns in given sequences
+
+        Parameters
+        ----------
+        X: ndarray (n_timesteps, n_features)
+             A numpy array
+        P: ndarray (n_timesteps, n_features)
+            Set of searched patterns
+
+        Returns
+        -------
+
+        '''

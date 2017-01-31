@@ -10,4 +10,5 @@ Similarities
 .. autosummary::
     :toctree:
 
+    dtw
     segmental_dtw

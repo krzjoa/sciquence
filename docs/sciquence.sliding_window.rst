@@ -20,4 +20,4 @@ Seekers
 .. autosummary::
     :toctree:
 
-    seeker
+    Seeker

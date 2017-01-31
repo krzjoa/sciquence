@@ -2,3 +2,4 @@
 *.pyc
 *.c
 *.so
+.idea
