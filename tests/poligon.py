@@ -1,21 +1,21 @@
 import numpy as np
-from sciquence.utils import diagonal_starts, diagonal_band
-from sciquence.dtw import segmental_dtw
+# from sciquence.utils import diagonal_starts, diagonal_band
+# from sciquence.dtw import segmental_dtw
 #
 #
 # #X = np.array([-1, -2, 600, -23, -45, -3, -4, 5, -50, 67, 1, 3, 4, 5])
 #
 
-Z = np.zeros((101, 129))
+#Z = np.zeros((101, 129))
 
-print Z
-
-ds = diagonal_starts(Z, 1)
-
-for i in ds:
-    print diagonal_band(Z, i, 5)
-
-print ds
+# print Z
+#
+# ds = diagonal_starts(Z, 1)
+#
+# for i in ds:
+#     print diagonal_band(Z, i, 5)
+#
+# print ds
 
 # from sciquence import sequences as sq
 # x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
@@ -60,3 +60,13 @@ print ds
 # x = [1,2,3,4,5]
 #
 # sl = slice(1, 5, 2)
+
+from sciquence.dtw import dtw
+from scipy.spatial.distance import cosine
+
+A = np.random.rand(5, 3)
+B = np.random.rand(8, 3)
+
+print A, B
+
+print dtw(A, B, cosine)
