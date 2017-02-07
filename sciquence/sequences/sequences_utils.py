@@ -28,7 +28,7 @@ def seq(array):
 
     Examples
     --------
-    >>> from sciquence import sequences as sq
+    >>> import sciquence.sequences as sq
     >>> import numpy as np
     >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0])
     >>> print sq.seq(x)
@@ -58,7 +58,7 @@ def specseq(array, element):
 
     Examples
     --------
-    >>> from sciquence import sequences as sq
+    >>> import sciquence.sequences as sq
     >>> import numpy as np
     >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
     >>> print sq.specseq(x, 44)
@@ -141,14 +141,38 @@ def seqi(array):
     idx_list: list of ndarray
         List of seqences indices
 
+    Examples
+    --------
+    >>> import sciquence.sequences as sq
+    >>> import numpy as np
+    >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    >>> print sq.seqi(x)
+   [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11], [12], [13, 14, 15, 16, 17], [18, 19], [20, 21, 22, 23]]
+
     '''
+
+    # TODO: optimize
+    lseq = seq(array)
+    indices = []
+    last_index = 0
+    for s in lseq:
+        indices.append(range(last_index, last_index + len(s)))
+        last_index += len(s)
+    return lseq, indices
 
 def nseqi(array):
     pass
 
 
 def pseqi(array):
-    pass
+    lseq = seq(array)
+    indices = []
+    last_index = 0
+    for s in lseq:
+        if s[0] == 1:
+            indices.append(np.array(range(last_index, last_index + len(s[1]))))
+        last_index += len(s[1])
+    return indices
 
 
 ############# Trimming sequences ##############
