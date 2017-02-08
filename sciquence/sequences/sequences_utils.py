@@ -161,27 +161,86 @@ def seqi(array):
     return lseq, indices
 
 def nseqi(array):
-    pass
+    # TODO: add docstring
+    # TODO: add unittest
+    '''
 
+    Get list of sequences and corresponding list of indices
 
-def pseqi(array):
+    Parameters
+    ----------
+    array: ndarray
+        Numpy array
+
+    Returns
+    -------
+    seq_list: list of ndarray
+        List of sequences
+    idx_list: list of ndarray
+        List of seqences indices
+
+    Examples
+    --------
+    >>> import sciquence.sequences as sq
+    >>> import numpy as np
+    >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    >>> print sq.seqi(x)
+   [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11], [12], [13, 14, 15, 16, 17], [18, 19], [20, 21, 22, 23]]
+   '''
     lseq = seq(array)
     indices = []
     last_index = 0
+    nlseq = []
     for s in lseq:
         if s[0] == 1:
-            indices.append(np.array(range(last_index, last_index + len(s[1]))))
-        last_index += len(s[1])
+            indices.append(np.array(range(last_index, last_index + len(s))))
+            nlseq.append(s)
+        last_index += len(s)
     return indices
 
 
-############# Trimming sequences ##############
+
+def pseqi(array):
+    # TODO: add docstring
+    # TODO: add unittest
+    '''
+
+    Get list of sequences and corresponding list of indices
+
+    Parameters
+    ----------
+    array: ndarray
+        Numpy array
+
+    Returns
+    -------
+    seq_list: list of ndarray
+        List of sequences
+    idx_list: list of ndarray
+        List of seqences indices
+
+    Examples
+    --------
+    '''
+    lseq = seq(array)
+    indices = []
+    last_index = 0
+    plseq = []
+    for s in lseq:
+        if s[0] == 1:
+            indices.append(np.array(range(last_index, last_index + len(s)))
+            plseq.append(s)
+        last_index += len(s)
+    return indices
+
+
+ ############# Trimming sequences ##############
 
 
 
-############## Comparisions ##############
+ ############## Comparisions ##############
 
-def lseq_equal(lseqa, lseqb):
+ def lseq_equal(lseqa, lseqb):
     '''
 
     Compare two lists of ndarrays
