@@ -11,6 +11,7 @@ Generators
     :toctree:
 
     wingen
+    raw_wingen
     multi_wingen
 
 
@@ -21,3 +22,4 @@ Seekers
     :toctree:
 
     Seeker
+    SlidingWindow

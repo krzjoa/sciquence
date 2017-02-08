@@ -14,6 +14,8 @@ Cutting & trimming
     pseq
     specseq
     seqi
+    nseqi
+    pseqi
 
 Comparing
 ---------
