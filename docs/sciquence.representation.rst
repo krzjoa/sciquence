@@ -1,5 +1,5 @@
-sciquence.sequences
-===================
+sciquence.representation
+========================
 
 Piecewise Aggregate Approximation
 ---------------------------------
