@@ -228,7 +228,7 @@ def pseqi(array):
     plseq = []
     for s in lseq:
         if s[0] == 1:
-            indices.append(np.array(range(last_index, last_index + len(s)))
+            indices.append(np.array(range(last_index, last_index + len(s))))
             plseq.append(s)
         last_index += len(s)
     return indices
@@ -240,7 +240,7 @@ def pseqi(array):
 
  ############## Comparisions ##############
 
- def lseq_equal(lseqa, lseqb):
+def lseq_equal(lseqa, lseqb):
     '''
 
     Compare two lists of ndarrays
