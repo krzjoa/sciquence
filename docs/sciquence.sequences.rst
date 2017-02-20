@@ -25,6 +25,15 @@ Comparing
 
     lseq_equal
 
+Input transformations
+---------------------
+
+.. autosummary::
+    :toctree:
+
+    rnn_input
+    seq2seq_input
+
 
 Searching
 ---------
