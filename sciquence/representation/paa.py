@@ -15,6 +15,10 @@ def paa(sequence, window, adjust=True):
 
     Piecewise Aggregate Approximation
 
+    PAA is a method of time series representation.
+    Every time point in the time series is quantized into the
+    mean value in the given time range of length N.
+
 
     Parameters
     ----------
@@ -35,6 +39,8 @@ def paa(sequence, window, adjust=True):
     .. [1] https://jmotif.github.io/sax-vsm_site/morea/algorithm/PAA.html
 
     '''
+
+    # TODO: Check adjust option
 
     wgen = wingen if adjust else raw_wingen
 
