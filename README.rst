@@ -16,5 +16,7 @@ Time series & sequences processing in Python
 
 Current features
 ----------------
-* Cutting sequences
-* Sliding window for sequences
+* Sequence manipulation functions: splitting, cutting etc.
+* Searching algorithms, e.g.: longest subsequence with given minimal mean threshold
+* Dynamic Time Warping
+* Representations: PAA, SAX

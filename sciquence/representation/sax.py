@@ -1,3 +1,4 @@
+#n -*- coding: utf-8 -*-
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
@@ -68,7 +69,7 @@ def sax(sequence, window, alphabet_size=5, adjust=True):
     return reduce(add, symbols[np.digitize(paa_repr, breakpoints)])
 
 
-# =========== SAX object ============
+# =========== SAX object ============ #
 # TODO: consider: some classes should be both transformers and processors
 
 class SAX(object):
@@ -86,6 +87,81 @@ class SAX(object):
 
     def fit_transform(self, X, y):
         return self.fit(X, y).transform(X, y)
+
+
+
+# ============== SAX-VSM ============= #
+
+class SAX_VSM(object):
+    '''
+
+    Symbolic Aggregate Approximation - Vector Space Model
+
+
+    Parameters
+    ----------
+    window
+    word_length
+    alphabet_size
+    adjust
+
+    References
+    ----------
+    .. [1] Pavel Senin, Sergey Malinchik
+            SAX-VSM: Interpretable Time Series Classification
+           Using SAX and Vector Space Model
+    .. [2]
+
+
+    '''
+
+
+    def __init__(self, window, word_length=3 ,alphabet_size=5, adjust=True):
+
+        #
+        '''
+
+        Uwaga! Algorytm najpierw jedzie oknem o zadanej długości, dzieląc
+        szreg czasowy na podciągi, a później każdy z tych podciagów przekształcany jest do postaci
+        SAX. Być może wymaga to korekty w implementacji algorytmu SAX.
+
+        '''
+
+
+        self.window = window
+        self.alphabet_size = alphabet_size
+        self.adjust = adjust
+
+        # Inner objects
+        self.scaler = StandardScaler()
+
+
+    def fit(self, X, y=None):
+
+        # First step: scaling data
+        scaled = self.scaler.fit_transform(X)
+
+        for row in scaled:
+            row_sax = self._fit_one_row(row)
+
+
+
+
+    def _fit_one_row(self, scaled_x):
+
+        # Tranforming scaled data into PAA representation
+        paa_repr = paa(scaled_x, window=self.window, adjust=self.adjust)
+
+        # Transforming PAA into SAX
+
+        breakpoints = gauss_breakpoints(self.alphabet_size)
+        letters = _alphabet(self.alphabet_size)
+
+        breakpoints = np.array(breakpoints)
+        symbols = np.array(letters)
+        return reduce(add, symbols[np.digitize(paa_repr, breakpoints)])
+
+
 
 
 def gauss_breakpoints(n_ranges):

@@ -1,7 +1,7 @@
 TODO list
 =========
 
-* Dynamic Time Warping
+* ~~Dynamic Time Warping~~
 * DTW Features
 * Bag of SFA Symbols
 * Learned Shapelets
@@ -20,3 +20,4 @@ TODO list
 * Complexity-Invariant Distance
 * Weighted Dynamic Time Warping
 * Time Warp Edit Distance
+* ~~SAX~~
