@@ -16,6 +16,7 @@ Cutting & trimming
     seqi
     nseqi
     pseqi
+    chunk
 
 Comparing
 ---------
