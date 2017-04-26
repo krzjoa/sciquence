@@ -25,6 +25,14 @@ Comparing
 
     lseq_equal
 
+Sampling
+--------
+
+.. autosummary::
+    :toctree:
+
+    random_slice
+
 
 Searching
 ---------
