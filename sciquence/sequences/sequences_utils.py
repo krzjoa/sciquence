@@ -233,6 +233,39 @@ def pseqi(array):
         last_index += len(s)
     return indices
 
+############### Splitting into chunks ###########
+
+def chunk(array, chunk_size):
+    '''
+
+    Split numpy array into chunks of equal length.
+
+    Parameters
+    ----------
+    array: ndarray
+        A numpy array
+    chunk_size: int
+        Desired length of a single chunk
+
+    Returns
+    -------
+    chunks: list of ndarray
+        Chunks of equal length
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import sciquence.sequences as sq
+    >>> x = np.array([1,2,3,4,5,6,7,8,9,10])
+    >>> sq.chunk(x, 3)
+    [array([1, 2, 3]), array([4, 5, 6]), array([7, 8, 9]), array([10])]
+
+    '''
+    chunks = []
+    for i in xrange(0, len(array), chunk_size):
+        chunks.append(array[i:i+chunk_size])
+    return chunks
+
 
  ############# Trimming sequences ##############
 
@@ -274,3 +307,6 @@ def lseq_equal(lseqa, lseqb):
     return np.logical_and.reduce(ans)
 
 
+# if __name__ == '__main__':
+#     x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+#     print chunk(x, 3)

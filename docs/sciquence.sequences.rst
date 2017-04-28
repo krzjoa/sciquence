@@ -16,6 +16,7 @@ Cutting & trimming
     seqi
     nseqi
     pseqi
+    chunk
 
 Comparing
 ---------
@@ -24,6 +25,15 @@ Comparing
     :toctree:
 
     lseq_equal
+
+Input transformations
+---------------------
+
+.. autosummary::
+    :toctree:
+
+    rnn_input
+    seq2seq_input
 
 
 Searching

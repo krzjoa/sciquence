@@ -10,3 +10,12 @@ Piecewise Aggregate Approximation
     :toctree:
 
     paa
+
+
+Symbolic Aggregate Approximation
+--------------------------------
+
+.. autosummary::
+    :toctree:
+
+    sax
