@@ -34,6 +34,15 @@ def paa(sequence, window, adjust=True):
     paa_representation: ndarray
         PAA representation of input sequence
 
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from sciquence.representation import paa
+    >>> np.random.seed(42)
+    >>> random_time_series = np.random.rand(50)
+    >>> print paa(random_time_series, window=10)
+    [ 0.52013674  0.39526784  0.40038724  0.50927069  0.40455702]
+
     References
     ----------
     .. [1] https://jmotif.github.io/sax-vsm_site/morea/algorithm/PAA.html
@@ -41,6 +50,7 @@ def paa(sequence, window, adjust=True):
     '''
 
     # TODO: Check adjust option
+    # TODO: Consider optimization: output = np.zeros(len(sequence))
 
     wgen = wingen if adjust else raw_wingen
 
@@ -50,3 +60,9 @@ def paa(sequence, window, adjust=True):
         output.append(np.mean(w))
 
     return np.array(output)
+
+if __name__ == "__main__":
+    from sax import sax
+    np.random.seed(42)
+    random_time_series = np.random.rand(50)
+    print sax(random_time_series, window=10)

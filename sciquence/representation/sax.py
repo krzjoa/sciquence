@@ -1,4 +1,4 @@
-#n -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
@@ -10,8 +10,13 @@
 import numpy as np
 import scipy.stats
 from sklearn.preprocessing import scale, StandardScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 from paa import paa
 from operator import add
+from sciquence.sliding_window import wingen, raw_wingen
+
+from scipy.spatial.distance import cosine
 
 
 def sax(sequence, window, alphabet_size=5, adjust=True):
@@ -37,6 +42,15 @@ def sax(sequence, window, alphabet_size=5, adjust=True):
     sax_representation: str
         A SAX representation
 
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from sciquence.representation import sax
+    >>> np.random.seed(42)
+    >>> random_time_series = np.random.rand(50)
+    >>> print sax(random_time_series, 10, alphabet_size=5)
+    dcccc
+
     References
     ----------
     .. [1] Lin, J., Keogh, E., Lonardi, S., & Chiu, B. (2003).
@@ -53,6 +67,8 @@ def sax(sequence, window, alphabet_size=5, adjust=True):
     '''
 
     # TODO: check dimensionality, size, aphabet size etc.
+    # Pre-step: checking if all arguments have proper values
+
 
     # First step: Standardization ( aka normalization, z-normalization or standard score)
     scaled = scale(sequence)
@@ -74,7 +90,7 @@ def sax(sequence, window, alphabet_size=5, adjust=True):
 
 class SAX(object):
 
-    def __init__(self, n_ranges=5):
+    def __init__(self, n_ranges=5, keep_scale=True):
         self.scaler = StandardScaler()
         self.breakpoints = gauss_breakpoints(n_ranges)
 
@@ -89,79 +105,7 @@ class SAX(object):
         return self.fit(X, y).transform(X, y)
 
 
-
-# ============== SAX-VSM ============= #
-
-class SAX_VSM(object):
-    '''
-
-    Symbolic Aggregate Approximation - Vector Space Model
-
-
-    Parameters
-    ----------
-    window
-    word_length
-    alphabet_size
-    adjust
-
-    References
-    ----------
-    .. [1] Pavel Senin, Sergey Malinchik
-            SAX-VSM: Interpretable Time Series Classification
-           Using SAX and Vector Space Model
-    .. [2]
-
-
-    '''
-
-
-    def __init__(self, window, word_length=3 ,alphabet_size=5, adjust=True):
-
-        #
-        '''
-
-        Uwaga! Algorytm najpierw jedzie oknem o zadanej długości, dzieląc
-        szreg czasowy na podciągi, a później każdy z tych podciagów przekształcany jest do postaci
-        SAX. Być może wymaga to korekty w implementacji algorytmu SAX.
-
-        '''
-
-
-        self.window = window
-        self.alphabet_size = alphabet_size
-        self.adjust = adjust
-
-        # Inner objects
-        self.scaler = StandardScaler()
-
-
-    def fit(self, X, y=None):
-
-        # First step: scaling data
-        scaled = self.scaler.fit_transform(X)
-
-        for row in scaled:
-            row_sax = self._fit_one_row(row)
-
-
-
-
-    def _fit_one_row(self, scaled_x):
-
-        # Tranforming scaled data into PAA representation
-        paa_repr = paa(scaled_x, window=self.window, adjust=self.adjust)
-
-        # Transforming PAA into SAX
-
-        breakpoints = gauss_breakpoints(self.alphabet_size)
-        letters = _alphabet(self.alphabet_size)
-
-        breakpoints = np.array(breakpoints)
-        symbols = np.array(letters)
-        return reduce(add, symbols[np.digitize(paa_repr, breakpoints)])
-
-
+# ================ UTILS ================ #
 
 
 def gauss_breakpoints(n_ranges):
@@ -191,17 +135,18 @@ def _alphabet(n_letters):
 
 
 def get_bins(sequence, breakpoints, symbols):
-    output = []
     breakpoints= np.array(breakpoints)
     symbols = np.array(symbols)
     return np.digitize(sequence, breakpoints)[symbols]
 
 
-
 if __name__ == '__main__':
-    rts = np.random.rand(20)*10
-    saxed = sax(rts, 3)
-    print saxed
+    # rts = np.random.rand(20)*10
+    # saxed = sax(rts, 3)
+    # print saxed
     #print gauss_breakpoints(10)
     #import scipy.stats
     #print scipy.stats.norm.ppf(1. / 3)
+
+    random_ts = np.random.rand(30, 100)
+    print random_ts

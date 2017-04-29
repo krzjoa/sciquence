@@ -1,8 +1,18 @@
-import sciquence.sequences as sq
 import numpy as np
-# x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
-# print sq.seqi(x)
+from sciquence.representation import SAX_VSM
+np.random.seed(42)
 
+rts = np.random.rand(30, 120)
+sax_vsm = SAX_VSM(window=12)
 
-x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-print sq.chunk(x, 3)
+out = sax_vsm.fit(rts)
+
+print sax_vsm.timeseries
+
+#print out
+
+# from sklearn.feature_extraction.text import TfidfVectorizer
+#
+# tfvec = TfidfVectorizer()
+#
+# print tfvec.fit_transform(out)

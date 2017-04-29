@@ -12,7 +12,7 @@
 sciquence
 =========
 
-Time series & sequences processing in Python
+Time series & sequences processing in Python (work in progress).
 
 Current features
 ----------------
@@ -20,3 +20,4 @@ Current features
 * Searching algorithms, e.g.: longest subsequence with given minimal mean threshold
 * Dynamic Time Warping
 * Representations: PAA, SAX
+* Classifiers: SAX-VSM classifier
