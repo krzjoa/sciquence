@@ -1,5 +1,4 @@
-TODO list
-=========
+## TODO list
 
 * ~~Dynamic Time Warping~~
 * DTW Features
@@ -11,7 +10,7 @@ TODO list
 * Derivative Transform Distance
 * Elastic Ensemble
 * Shapelet Transform
-* SAX and Vector Space Model
+* ~~SAX and Vector Space Model~~
 * Time Series Forest
 * Fast Shapelet Tree
 * Time Series Bag of Features
