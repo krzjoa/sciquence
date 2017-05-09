@@ -10,6 +10,7 @@ Welcome to sciquence's documentation!
    :maxdepth: 2
    :caption: User documentation
 
+   intro
    installation
 
 .. toctree::

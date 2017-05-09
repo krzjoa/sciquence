@@ -48,13 +48,6 @@ class SAX_VSM(BaseEstimator):
     '''
 
     def __init__(self, window, word_length=3, alphabet_size=5, adjust=True):
-        '''
-
-        Uwaga! Algorytm najpierw jedzie oknem o zadanej długości, dzieląc
-        szreg czasowy na podciągi, a później każdy z tych podciagów przekształcany jest do postaci
-        SAX. Być może wymaga to korekty w implementacji algorytmu SAX.
-
-        '''
 
         # TODO: parametr word_length powinien być wielokrotnością parametru window
         # TODO: Check if scale it with global or local stddev and mean
@@ -79,12 +72,6 @@ class SAX_VSM(BaseEstimator):
         # Inner objects
         # self.scaler = StandardScaler()
 
-
-    # def fit(self, X, y=None):
-    #     return self
-    #
-    # def transform(self, X, y=None):
-    #     return X
 
     def fit(self, X, y=None):
         rows = []
