@@ -18,6 +18,8 @@ import numpy as np
 # print tfvec.fit_transform(out)
 
 
-from sciquence.sequences.cy_searching2 import max_seq
+from cy_searching2 import max_seq
 
-print max_seq(None)
+x = np.array([1,2,3,4,5])
+
+print max_seq(x)

@@ -15,7 +15,7 @@ from libc.stdlib cimport malloc, free
 from cython.operator cimport postincrement as inc
 from cython.operator cimport postdecrement as dec
 
-# TODO: Unify API
+# TODO: Unify API, optimize all the functions
 
 def mln_point(list A):
   '''
@@ -300,8 +300,7 @@ def p_k(list p,  int k, int idx):
 
 def longest_segment(np.ndarray sequence, float alpha):
   '''
-  Find the longest subsequence which
-  scores above a given threshold in O(n)
+  Find the longest subsequence which scores above a given threshold in O(n)
 
   Parameters
   ----------
