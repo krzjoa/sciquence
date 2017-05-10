@@ -44,3 +44,4 @@ Searching
     mslc
     longest_segment
     max_avg_seq
+    max_seq
