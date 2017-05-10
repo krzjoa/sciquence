@@ -58,6 +58,8 @@ extensions = [
     #           include_dirs=[np.get_include()]),
     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
               include_dirs=[np.get_include()]),
+    Extension("sciquence.sequences.cy_searching2", ["sciquence/sequences/cy_searching2.pyx"],
+              include_dirs=[np.get_include()]),
     Extension("sciquence.dtw.cy_segmental_dtw", ["sciquence/dtw/cy_segmental_dtw.pyx"],
               include_dirs=[np.get_include()]),
     Extension("sciquence.dtw.cy_dtw", ["sciquence/dtw/cy_dtw.pyx"],
