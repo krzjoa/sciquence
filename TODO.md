@@ -20,3 +20,4 @@
 * Weighted Dynamic Time Warping
 * Time Warp Edit Distance
 * ~~SAX~~
+* Binarizing multiple rows in matrix
