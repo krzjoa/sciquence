@@ -24,7 +24,6 @@ Current features
 
 Installation
 ------------
-To install current bleeding-edge sciquence verrsion, simply use command:
+To install current bleeding-edge ``sciquence`` version, simply use command::
 
-.. code-block::
     sudo pip install git+https://github.com/krzjoa/sciquence.git
