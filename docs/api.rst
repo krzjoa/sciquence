@@ -11,3 +11,4 @@ sciquence API
    sciquence.sliding_window
    sciquence.representation
    sciquence.text_processing
+   sciquence.data_structures
