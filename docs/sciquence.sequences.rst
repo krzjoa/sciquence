@@ -25,8 +25,7 @@ Comparing
     :toctree:
 
     lseq_equal
-    shapes_equal
-    size_equal
+
 
 Input transformations
 ---------------------
