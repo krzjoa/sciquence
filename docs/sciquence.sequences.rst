@@ -18,7 +18,13 @@ Cutting & trimming
     pseqi
     chunk
 
+Comparing
+---------
 
+.. autosummary::
+    :toctree:
+
+    lseq_equal
 
 
 Input transformations

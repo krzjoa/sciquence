@@ -1,8 +1,8 @@
-from sequences_utils import seq, specseq, nseq, pseq, seqi, pseqi, nseqi, lseq_equal, chunk
+from sequences_utils import seq, specseq, nseq, pseq, seqi, pseqi, nseqi, chunk
 from input import rnn_input, seq2seq_input
 from cy_searching import mslc, longest_segment, max_avg_seq
 from sorting import parallel_sort
-#from comparision import lseq_equal #, shapes_equal, size_equal
+from comparision import lseq_equal, shapes_equal, size_equal
 #from cy_searchning2 import max_seq
 
 
@@ -34,8 +34,8 @@ __all__ = [
            #'max_seq'
 
            # Comparisions
-            #'lseq_equal',
-            #'shapes_equal',
-            #'size_equal'
+            'lseq_equal',
+            'shapes_equal',
+            'size_equal'
 
            ]
