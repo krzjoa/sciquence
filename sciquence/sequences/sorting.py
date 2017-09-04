@@ -7,7 +7,7 @@
 # License: MIT
 
 import numpy as np
-from comparision import shapes_equal, size_equal
+from comparision import size_equal
 
 
 

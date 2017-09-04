@@ -28,6 +28,14 @@ Comparing
     shapes_equal
     size_equal
 
+Sorting
+-------
+
+.. autosummary::
+    :toctree:
+
+    parallel_sort
+
 
 Input transformations
 ---------------------
