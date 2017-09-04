@@ -12,7 +12,7 @@ class DenseLayer(object):
 
         self.params = [self.W, self.b]
 
-    def forward(self):
+    def get_output(self, input):
         pass
 
     def get_output_size(self):
