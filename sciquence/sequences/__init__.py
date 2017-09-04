@@ -35,7 +35,7 @@ __all__ = [
 
            # Comparisions
             'lseq_equal',
-            'shapes_equal',
-            'size_equal'
+            #'shapes_equal',
+            #'size_equal'
 
            ]
