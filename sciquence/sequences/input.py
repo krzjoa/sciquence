@@ -13,6 +13,7 @@ import numpy as np
 
 # TODO: optimize, tweak processor classes. Consider adding transformer classes.
 #  Maybe functions should have arbitrary number of params
+# TODO: REFACTOR!!!!
 
 class RNNIput(Processor):
 
@@ -45,6 +46,8 @@ class Seq2SeqInput(Processor):
 
     def process(self, X, y):
         return super(Seq2SeqInput, self).process(X, y)
+
+
 
 
 def _get_neighbourhood(matrix, row, padding):
@@ -90,6 +93,7 @@ def rnn_input(X, y, window_size, step=1):
 
 def seq2seq_input(X, y, window_size, step=1, output_dim=1):
     # TODO: add examples, especially for output_dim usecase
+    # TODO: remove & unify with rnn_input
     '''
 
     Prepare input for sequence2sequence recurrent neural network.

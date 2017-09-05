@@ -12,6 +12,8 @@ from comparision import size_equal
 
 
 def parallel_sort(*arrays, **kwargs):
+    # TODO: improve docstring
+
     '''
     
     Parallel sort. It always uses values from the first array 

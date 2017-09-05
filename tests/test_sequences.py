@@ -41,14 +41,15 @@ class TestSequences(unittest.TestCase):
 
         assert lseq_equal(nseq(x), expected)
 
-#     def test_pseq(self):
-#         ''' All the sequences consisting of ones only'''
-# ru
-#
-#         expected = [np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
-#                     np.array([0, 0, 0, 0]), np.array([0, 0, 0])]
-#
-#         assert lseq_equal(nseq(x), expected)
+    def test_pseq(self):
+        ''' All the sequences consisting of ones only'''
+        x = np.array([1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+                      1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
+
+        expected = [np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+                    np.array([0, 0, 0, 0]), np.array([0, 0, 0])]
+
+        assert lseq_equal(nseq(x), expected)
 
 if __name__ == '__main__':
     unittest.main()

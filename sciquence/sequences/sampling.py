@@ -31,3 +31,9 @@ def random_slice(array, slice_length, axis=0):
     first = np.random.randint(0, max_possible)
     last = first + slice_length
     return slice(first, last)
+
+def random_chunk(*arrays, **kwargs):
+
+    # Parsing keyword arguments
+
+    pass

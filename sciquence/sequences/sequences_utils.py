@@ -125,6 +125,7 @@ def pseq(array):
 
 
 def seqi(array):
+    # TODO: docstring
     '''
 
     Get list of sequences and corresponding list of indices
@@ -147,7 +148,9 @@ def seqi(array):
     >>> import numpy as np
     >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
     >>> print sq.seqi(x)
-   [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11], [12], [13, 14, 15, 16, 17], [18, 19], [20, 21, 22, 23]]
+   ([array([0, 1, 2, 3, 4, 5]), array([6, 7, 8, 9, 10, 11]), array([12]),
+   array([13, 14, 15, 16, 17]), array([18, 19]), array([20, 21, 22, 23])],
+
 
     '''
 
@@ -162,10 +165,10 @@ def seqi(array):
 
 def nseqi(array):
     # TODO: add docstring
-    # TODO: add unittest
+
     '''
 
-    Get list of sequences and corresponding list of indices
+    Get list of negative sequences (i.e. consisting of zeroes)  and corresponding list of indices
 
     Parameters
     ----------
@@ -185,7 +188,8 @@ def nseqi(array):
     >>> import numpy as np
     >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
     >>> print sq.seqi(x)
-   [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11], [12], [13, 14, 15, 16, 17], [18, 19], [20, 21, 22, 23]]
+   [array([0, 0, 0, 0, 0, 0]), array([0, 0, 0, 0])]
+
    '''
     lseq = seq(array)
     indices = []
@@ -202,10 +206,10 @@ def nseqi(array):
 
 def pseqi(array):
     # TODO: add docstring
-    # TODO: add unittest
+
     '''
 
-    Get list of sequences and corresponding list of indices
+    Get list of positive sequences (i.e. consisting of ones)  and corresponding list of indices
 
     Parameters
     ----------
@@ -267,5 +271,7 @@ def chunk(array, chunk_size):
     return chunks
 
 
- ############# Trimming sequences ##############
+if __name__ == '__main__':
+    x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    print nseq(x)
 
