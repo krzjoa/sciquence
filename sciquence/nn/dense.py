@@ -8,6 +8,8 @@ import lasagne
 
 from neural_utils import init_weights
 
+# TODO: poprawić
+
 
 class InputLayer(object):
 
@@ -187,7 +189,7 @@ def training():
     # Initializing layers
     input_layer = InputLayer(input_shape=(200, ln), input_var=Xvar)
     dense_1 = DenseLayer(input_size=D, num_units=2048)
-    dense_2 = DenseLayer(input_size=2048, num_units=1)
+    dense_2 = DenseLayer(input_size=2048, num_units=K)
 
     # Creating connections in graph
     model = input_layer()
