@@ -66,23 +66,24 @@ def max_seq(A):
     current_number = A[i]
 
     # Appending L
-    current_pair.append(accum)
+    if len(current_pair) == 0:
+      current_pair.append(accum)
 
     if current_number < 0:
       max_seq.append(current_subseq)
-      current_pair.append(accum)
+      current_pair.append(accum+current_number)
       lr_pairs.append(current_pair)
       current_subseq = []
       current_pair = []
     elif i == len(A)-1:
       current_subseq.append(current_number)
       max_seq.append(current_subseq)
-      current_pair.append(accum)
+      current_pair.append(accum+current_number)
       lr_pairs.append(current_pair)
       current_pair = []
     else:
       current_subseq.append(current_number)
 
-    accum += current_number
+      accum += current_number
 
   return max_seq, lr_pairs
