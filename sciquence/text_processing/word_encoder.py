@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
@@ -9,9 +10,17 @@
 from collections import OrderedDict
 import numpy as np
 from operator import add
+import pandas as pd
+
+# Special markers for start en and
+
+START = '__START__'
+END = '__END__'
 
 
-class WordEncoder(object):
+# TODO: start & end optionally
+
+class Word2Idx(object):
     '''
 
     Class used for for transforming text data into
@@ -20,7 +29,7 @@ class WordEncoder(object):
     '''
 
     def __init__(self):
-        self.words = OrderedDict([('START',0), ('END',1)])
+        self.words = OrderedDict([(START, 0), (END, 1)])
 
     def __getitem__(self, item):
         if isinstance(item, int):
@@ -40,7 +49,7 @@ class WordEncoder(object):
 
         Returns
         -------
-        self: object
+        self: Word2Idx
             Returns self
 
         '''
@@ -64,7 +73,24 @@ class WordEncoder(object):
             Returns self
 
         '''
-        unique = np.unique(reduce(add, X))
+        # TODO: check if data is string (?)
+
+
+        # If input is list
+        if not isinstance(X, list):
+            raise ValueError("Passed data is no a list")
+
+        # Check if list is not empty
+        if not X:
+            raise ValueError("List is empty!")
+
+        # Reduce list to one object
+        if isinstance(X[0], list):
+            X = reduce(add, X)
+        # else:
+        #     X_transformed =  X
+
+        unique = pd.unique(X)
         current_index = len(self.words)
         update = [(word, current_index + idx)
                   for idx, word in enumerate(unique) if word not in self.words]
@@ -107,8 +133,13 @@ class WordEncoder(object):
             Nested list containing word indices
 
         '''
-        return [[self.words['START']] + [self.words[word]for word in sentence]
-                +[self.words['END']] for sentence in X]
+
+        # Reduce list to one object
+        if isinstance(X[0], list):
+            pass
+
+        return [[self.words[START]] + [self.words[word]for word in sentence]
+                +[self.words[END]] for sentence in X]
 
     def inverse_transform(self, X):
         ''''
@@ -127,4 +158,26 @@ class WordEncoder(object):
 
 
         '''
+
+        # FIXME:
+        if not isinstance(X[0], list):
+            X = [X]
+
+
         return [[self.words.keys()[idx] for idx in sentence] for sentence in X]
+
+
+
+if __name__ == '__main__':
+
+    words =  "Litwo! Ojczyzno moja! ty jesteś jak zdrowie"
+    words = [words.split(), words.split()]
+
+    print words
+
+
+    w2idx = Word2Idx()
+
+    print w2idx.fit_transform(words)
+
+    print w2idx.words

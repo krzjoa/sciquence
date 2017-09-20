@@ -30,7 +30,6 @@ class InputLayer(object):
         return self.input_shape
 
 
-
 class DenseLayer(object):
 
     # def __init__(self, incoming, num_units,
