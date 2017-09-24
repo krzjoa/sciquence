@@ -2,7 +2,7 @@
 # Krzysztof Joachimiak 2017
 # sciquence: Time series & sequences in Python
 #
-# Word Encoder
+# Word to index
 # Author: Krzysztof Joachimiak
 #
 # License: MIT
@@ -155,7 +155,6 @@ class Word2Idx(object):
         -------
         indices: list of list of int
             Nested list containing word indices
-
 
         '''
 

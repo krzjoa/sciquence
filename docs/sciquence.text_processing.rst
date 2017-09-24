@@ -9,4 +9,4 @@ Text to vector
 .. autosummary::
     :toctree:
 
-    WordEncoder
+    Word2Idx

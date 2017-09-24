@@ -44,11 +44,11 @@ def txt_to_lines(path):
     return lines
 
 
-def text_pipe(path):
-    from word_encoder import Word2Idx
+def text_pipe(path="../../data/frost.txt"):
+    from word2idx import Word2Idx
     word2idx = Word2Idx()
 
-    text = txt_to_lines("../../data/frost.txt")
+    text = txt_to_lines(path)
     text = word2idx.fit_transform(text)
 
     return text, word2idx

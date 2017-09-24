@@ -28,7 +28,7 @@ def sax(sequence, window, alphabet_size=5, adjust=True):
 
     Parameters
     ----------
-    sequence: ndarray
+    sequence: numpy.ndarray
         One-dimensional numpy array of arbitrary length
     window: int
         Length of sliding window

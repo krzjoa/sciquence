@@ -22,12 +22,12 @@ def paa(sequence, window, adjust=True):
 
     Parameters
     ----------
-    sequence: ndarray (n_timesteps, 1)
-        A sequence
+    sequence: numpy.ndarray
+        A sequence (n_timesteps, 1)
     window: int
         Window length
-    adjust: bool, default True
-        Adjust size
+    adjust: bool
+        Adjust size. Default: True
 
     Returns
     -------
