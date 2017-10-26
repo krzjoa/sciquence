@@ -103,6 +103,53 @@ def is_overlapped(idx1, idx2):
     s2 = set(idx2)
     return bool(len(s1.intersection(s2)))
 
+
+def cut_patches(data, center_indices, pad, ignore_short=False):
+    '''
+    
+    Cut patches around selected centers
+        
+    Parameters
+    ----------
+    data: numpy.ndarray
+        1-d numpy array
+    center_indices: list of int
+        List of patch centers
+    pad: int
+        Padding for both side
+    ignore_short: bool
+        Ignore patches if are too short
+
+    Returns
+    -------
+    patches: list of numpy.ndarray
+        List of patches
+
+    '''
+
+    patches = []
+    max_idx = len(data) - 1
+
+    for ci in center_indices:
+        start = ci - pad
+
+        if start < 0 and ignore_short:
+            continue
+        elif start < 0:
+            start = 0
+
+        stop = ci + pad + 1
+
+        if stop > max_idx and ignore_short:
+            continue
+        elif stop < 0:
+            stop = max_idx
+
+        patches.append(data[start:stop])
+   
+     return patches
+
+
 def random_chunk(*arrays, **kwargs):
 
     # Parsing keyword arguments
