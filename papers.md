@@ -19,3 +19,5 @@ sequence analysis](http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf)
 * [Finding Clusters of Different Sizes, Shapes, and Densities in Noisy,
 High Dimensional Data](http://www-users.cs.umn.edu/~kumar/papers/SIAM_snn.pdf)
 * [k-Shape: Efficient and Accurate Clustering of Time Series](http://www1.cs.columbia.edu/~jopa/Papers/PaparrizosSIGMOD2015.pdf)
+
+### Data mining
