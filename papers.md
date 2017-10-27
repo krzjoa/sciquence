@@ -1,4 +1,4 @@
-# List of papers (sciquence reaserch)
+# List of papers (sciquence research)
 
 ### ML methods for sequential data
  * [Machine Learning for Sequential Data: A Review](http://web.engr.oregonstate.edu/~tgd/publications/mlsd-ssspr.pdf)
