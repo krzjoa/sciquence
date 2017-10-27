@@ -10,6 +10,9 @@ length-constrained heaviest segments
 with applications to biomolecular
 sequence analysis](http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf)
 
+### Classification
+
+
 ### Clustering
 * [Manifold Clustering of Shapes](http://www.cs.ucr.edu/~eamonn/ManifoldShapeClustering.pdf)
 * [Bayesian Clustering of Shapes of Curves](https://arxiv.org/pdf/1504.00377.pdf)
