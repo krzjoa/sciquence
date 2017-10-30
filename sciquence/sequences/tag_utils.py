@@ -1,6 +1,6 @@
 import numpy as np
 from operator import itemgetter
-
+import scipy.ndimage
 
 def check_hit(tag, peaks):
     '''
@@ -77,6 +77,37 @@ def mark_hits(tag, peaks):
     else:
         return []
 
+def scale_binary_tag(col, output_size):
+    '''
+    
+    Scale binary tagging
+    
+    Parameters
+    ----------
+    col: numpy.ndarray
+        Numpy array with one/zero values only
+    output_size: int
+        Desired output size
+            
+    Returns
+    -------
+    scaled_tagging: numpy.ndarray
+        Scaled tagging column
+        
+    Examples
+    --------
+    >>>  z = np.array([0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0])
+    >>>  print z.shape
+    (19,)
+    >>> print scale_binary_tag(z, 38)
+    [0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 0 0 0]
+
+    '''
+    scale = output_size / float(len(col))
+    col = col.astype(int)
+    return scipy.ndimage.zoom(col, scale)    
+    
+    
 if __name__ == '__main__':
 
     a = np.array([1, 40, 45, 78, 67])
