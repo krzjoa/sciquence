@@ -43,6 +43,34 @@ def diagonal_starts(A, R=1):
     return diagonals
 
 
+def count_decimal_places(number):
+    '''
+    
+    Count decimal palces in float number
+    
+    Parameters
+    ----------
+    number: float
+        A floating-point number
+
+    Returns
+    -------
+    num_of_decimals: int
+        Number of decimal places
+    
+    References
+    ----------
+    https://stackoverflow.com/questions/26231755/count-decimal-places-in-a-float
+    
+    Examples
+    --------
+    >>>
+
+    '''
+    number = str(number)
+    return number[::-1].find('.')
+
+
 # def diag_ends(A, diag_starts):
 #
 #     # FIXME: nie dziala!!!!
