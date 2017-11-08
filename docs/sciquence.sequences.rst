@@ -47,16 +47,6 @@ Sorting
     parallel_sort
 
 
-Input transformations
----------------------
-
-.. autosummary::
-    :toctree:
-
-    rnn_input
-    seq2seq_input
-
-
 Searching
 ---------
 .. autosummary::
