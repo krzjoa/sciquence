@@ -54,8 +54,6 @@ VERSION = '0.1.1'
 # Cython
 
 extensions = [
-    # Extension("sciquence.utils.cy_mat_utils", ["sciquence/utils/cy_mat_utils.pyx"],
-    #           include_dirs=[np.get_include()]),
     Extension("sciquence.sequences.cy_searching", ["sciquence/sequences/cy_searching.pyx"],
               include_dirs=[np.get_include()]),
     Extension("sciquence.sequences.cy_searching2", ["sciquence/sequences/cy_searching2.pyx"],

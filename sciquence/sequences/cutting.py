@@ -160,10 +160,11 @@ def seqi(array):
         last_index += len(s)
     return lseq, indices
 
+
 def nseqi(array):
     '''
 
-    Get list of negative sequences (i.e. consisting of zeroes) indices
+    Get list of negative sequences indices (i.e. consisting of zeroes)
 
     Parameters
     ----------
@@ -202,7 +203,7 @@ def nseqi(array):
 def pseqi(array):
     '''
 
-    Get list of positive sequences (i.e. consisting of ones) indices
+    Get list of positive sequences indices (i.e. consisting of ones)
 
     Parameters
     ----------

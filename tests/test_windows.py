@@ -1,5 +1,5 @@
 import unittest
-from sciquence.sliding_window import WindowMaker, SlidingWindow
+from sciquence.sliding_window import  SlidingWindow
 from sciquence.sequences import lseq_equal
 import numpy as np
 
@@ -38,19 +38,6 @@ class TestWindowMaker(unittest.TestCase):
         assert lseq_equal(sw.transform(X_dummy), expected2)
 
 
-    def test_windows(self):
-
-        X_dummy = np.array([
-            [1, 2, 3, 4, 5],
-            [11, 12, 13, 14, 15],
-            [21, 22, 23, 24, 25]
-        ])
-
-        y_dummy = np.array([0, 1, 0])
-
-        sw = WindowMaker(window_size=3)
-
-        print sw.process(X_dummy, y_dummy)
 
 
 if __name__ == '__main__':
