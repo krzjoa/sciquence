@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from sciquence.dtw import *
+from sciquence.similarities import *
 from scipy.spatial.distance import cosine
 
 
