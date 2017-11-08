@@ -21,3 +21,7 @@ High Dimensional Data](http://www-users.cs.umn.edu/~kumar/papers/SIAM_snn.pdf)
 * [k-Shape: Efficient and Accurate Clustering of Time Series](http://www1.cs.columbia.edu/~jopa/Papers/PaparrizosSIGMOD2015.pdf)
 
 ### Data mining
+
+### Similarity measures
+* [A Shape-based Similarity Measure for Time Series Data with
+Ensemble Learning](http://www.konan-u.ac.jp/hp/seki/myarticles/nakamura2012paa.pdf)
