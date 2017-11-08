@@ -1,5 +1,5 @@
-sciquence.dtw
-=============
+sciquence.similarities
+======================
 
 Similarities
 ------------
