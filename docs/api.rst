@@ -6,8 +6,7 @@ sciquence API
        :maxdepth: 2
 
    sciquence.sequences
-   sciquence.dtw
-   sciquence.sax_vsm
+   sciquence.similarities
    sciquence.sliding_window
    sciquence.representation
    sciquence.text_processing

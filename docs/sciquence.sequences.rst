@@ -1,8 +1,8 @@
 sciquence.sequences
 ===================
 
-Cutting & trimming
-------------------
+Cutting
+-------
 
 .. currentmodule:: sciquence.sequences
 
@@ -16,6 +16,7 @@ Cutting & trimming
     seqi
     nseqi
     pseqi
+    specseqi
     chunk
 
 Comparing
@@ -27,6 +28,15 @@ Comparing
     lseq_equal
     shapes_equal
     size_equal
+
+
+Sampling
+--------
+
+.. autosummary::
+    :toctree:
+
+    random_slice
 
 Sorting
 -------

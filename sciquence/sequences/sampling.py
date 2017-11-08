@@ -9,25 +9,35 @@
 import numpy as np
 
 
-def random_slice(array, slice_length, axis=0):
+def random_slice(array_len, slice_length):
     '''
-    Choose a random subsequence of given length
+
+    Choose a random slice of given length
+
     Parameters
     ----------
-    array: ndarray
-        A sequence
+    array_len: int
+        Array length
     slice_length: int
         Length of subsequence
     Returns
     -------
     slice: slice
         A subsequence slice
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import sciquence.sequences as sq
+    >>> print sq.random_slice(54, 6)
+    slice(15, 21, None)
+
     '''
 
-    if array.shape[0] < slice_length:
+    if array_len < slice_length:
         raise Exception("Slice length cannot be greater than input array length")
 
-    max_possible = array.shape[axis] - slice_length
+    max_possible = array_len - slice_length
     first = np.random.randint(0, max_possible)
     last = first + slice_length
     return slice(first, last)
@@ -96,6 +106,11 @@ def is_overlapped(idx1, idx2):
     -------
     is_overlapped: bool
         True if indices overlap, otherwise: False
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import sciquence.sequences as sq
     
     '''
     # TODO: check & optimize!'
@@ -125,7 +140,15 @@ def cut_patches(data, center_indices, pad, ignore_short=False):
     patches: list of numpy.ndarray
         List of patches
 
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import sciquence.sequences as sq
+    >>>
+
     '''
+
+    # TODO: Add fix length
 
     patches = []
     max_idx = len(data) - 1
@@ -147,7 +170,7 @@ def cut_patches(data, center_indices, pad, ignore_short=False):
 
         patches.append(data[start:stop])
    
-     return patches
+    return patches
 
 
 def random_chunk(*arrays, **kwargs):
@@ -155,3 +178,6 @@ def random_chunk(*arrays, **kwargs):
     # Parsing keyword arguments
 
     pass
+
+if __name__ == '__main__':
+    print random_slice(44, 6)

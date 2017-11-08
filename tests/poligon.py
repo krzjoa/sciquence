@@ -1,23 +1,14 @@
 import numpy as np
+import sciquence.sequences as sq
 
-# np.random.seed(42)
-#
-# rts = np.random.rand(30, 120)
-# sax_vsm = SAX_VSM(window=12)
-#
-# out = sax_vsm.fit(rts)
-#
-# print sax_vsm.timeseries
+x = np.array([1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+              1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
 
-#print out
+expected = [np.array([1, 1, 1]), np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+            np.array([1, 1, 1, 1, 1, 1, 1, 1, 1]),
+            np.array([0, 0, 0, 0]), np.array([1, 1, 1, 1]), np.array([0, 0, 0])]
 
-# from sklearn.feature_extraction.text import TfidfVectorizer
-#
-# tfvec = TfidfVectorizer()
-#
-# print tfvec.fit_transform(out)
+print sq.seq(x)
+print sq.lseq_equal
 
-
-from sciquence.sequences.cy_searching2 import max_seq
-
-print max_seq(None)
+#print sq.lseq_equal(sq.seq(x), expected)

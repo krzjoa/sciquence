@@ -125,7 +125,6 @@ def pseq(array):
 
 
 def seqi(array):
-    # TODO: docstring
     '''
 
     Get list of sequences and corresponding list of indices
@@ -148,12 +147,10 @@ def seqi(array):
     >>> import numpy as np
     >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
     >>> print sq.seqi(x)
-   ([array([0, 1, 2, 3, 4, 5]), array([6, 7, 8, 9, 10, 11]), array([12]),
-   array([13, 14, 15, 16, 17]), array([18, 19]), array([20, 21, 22, 23])],
-
+    ([array([0, 1, 2, 3, 4, 5]), array([6, 7, 8, 9, 10, 11]), array([12]),
+    array([13, 14, 15, 16, 17]), array([18, 19]), array([20, 21, 22, 23])],
 
     '''
-
     # TODO: optimize
     lseq = seq(array)
     indices = []
@@ -164,11 +161,9 @@ def seqi(array):
     return lseq, indices
 
 def nseqi(array):
-    # TODO: add docstring
-
     '''
 
-    Get list of negative sequences (i.e. consisting of zeroes)  and corresponding list of indices
+    Get list of negative sequences (i.e. consisting of zeroes) indices
 
     Parameters
     ----------
@@ -186,30 +181,28 @@ def nseqi(array):
     --------
     >>> import sciquence.sequences as sq
     >>> import numpy as np
-    >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0])
     >>> print sq.seqi(x)
-   [array([0, 0, 0, 0, 0, 0]), array([0, 0, 0, 0])]
+    [array([ 6,  7,  8,  9, 10, 11]), array([17, 18, 19, 20])]
 
    '''
     lseq = seq(array)
     indices = []
     last_index = 0
     nlseq = []
+
     for s in lseq:
-        if s[0] == 1:
+        if s[0] == 0:
             indices.append(np.array(range(last_index, last_index + len(s))))
             nlseq.append(s)
         last_index += len(s)
     return indices
 
 
-
 def pseqi(array):
-    # TODO: add docstring
-
     '''
 
-    Get list of positive sequences (i.e. consisting of ones)  and corresponding list of indices
+    Get list of positive sequences (i.e. consisting of ones) indices
 
     Parameters
     ----------
@@ -225,6 +218,11 @@ def pseqi(array):
 
     Examples
     --------
+    >>> import sciquence.sequences as sq
+    >>> import numpy as np
+    >>> x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0])
+    >>> print sq.seqi(x)
+    [array([0, 1, 2, 3, 4, 5]), array([12, 13, 14, 15, 16])]
     '''
     lseq = seq(array)
     indices = []
@@ -232,6 +230,46 @@ def pseqi(array):
     plseq = []
     for s in lseq:
         if s[0] == 1:
+            indices.append(np.array(range(last_index, last_index + len(s))))
+            plseq.append(s)
+        last_index += len(s)
+    return indices
+
+
+def specseqi(array, elem):
+    '''
+
+    Get list of sequences indices, consisting of specific element
+
+    Parameters
+    ----------
+    array: ndarray
+        Numpy array
+    elem: object
+        A sequence element
+
+    Returns
+    -------
+    seq_list: list of ndarray
+        List of sequences
+    idx_list: list of ndarray
+        List of seqences indices
+
+    Examples
+    --------
+    >>> import sciquence.sequences as sq
+    >>> import numpy as np
+    >>> x =  np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    >>> print sq.seqi(x)
+    [array([13, 14, 15, 16, 17])]
+
+    '''
+    lseq = seq(array)
+    indices = []
+    last_index = 0
+    plseq = []
+    for s in lseq:
+        if s[0] == elem:
             indices.append(np.array(range(last_index, last_index + len(s))))
             plseq.append(s)
         last_index += len(s)
@@ -272,6 +310,6 @@ def chunk(array, chunk_size):
 
 
 if __name__ == '__main__':
-    x = np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
-    print nseq(x)
+    x =  np.array([1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 44, 44, 44, 44, 44, 1, 1, 0, 0, 0, 0])
+    print specseqi(x, 44)
 

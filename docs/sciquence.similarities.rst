@@ -4,7 +4,7 @@ sciquence.dtw
 Similarities
 ------------
 
-.. currentmodule:: sciquence.dtw
+.. currentmodule:: sciquence.similarities
 
 
 .. autosummary::
