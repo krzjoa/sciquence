@@ -11,7 +11,8 @@ with applications to biomolecular
 sequence analysis](http://www.csie.ntu.edu.tw/~kmchao/papers/2002_jcss.pdf)
 
 ### Classification
-
+* [Dynamic Time Warping averaging of time series allows faster and more accurate classification](https://blog.acolyer.org/2016/05/13/dynamic-time-warping-averaging-of-time-series-allows-faster-and-more-accurate-classification/)
+* [Times series averaging from a probabilistic interpretation of time-elastic kernel](https://arxiv.org/abs/1505.06897)
 
 ### Clustering
 * [Manifold Clustering of Shapes](http://www.cs.ucr.edu/~eamonn/ManifoldShapeClustering.pdf)
@@ -35,4 +36,6 @@ Different Dimensions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3564859/pdf/p
 * [Similarity Measures
 and Dimensionality Reduction Techniques
 for Time Series Data Mining ](http://cdn.intechopen.com/pdfs/39030/InTech-Similarity_measures_and_dimensionality_reduction_techniques_for_time_series_data_mining.pdf)
+
+
 
