@@ -17,7 +17,7 @@ __all__ = [
            'seqi',
            'pseqi',
            'nseqi',
-           'specseqi'
+           'specseqi',
 
            # Splitting into chunks
             'chunk',
