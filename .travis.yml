@@ -17,7 +17,7 @@ virtualenv:
   system_site_packages: true
 
 before_install:
-  - apt-get install python-tk
+  - sudo apt-get install python-tk
 
 install:
   - sudo pip install --install-option='--no-cython-compile' cython
