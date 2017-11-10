@@ -164,7 +164,7 @@ def seqi(array):
 def nseqi(array):
     '''
 
-    Get list of negative sequences indices (i.e. consisting of zeroes)
+    Get list of negative sequences indices (consisting of zeroes)
 
     Parameters
     ----------
@@ -203,7 +203,7 @@ def nseqi(array):
 def pseqi(array):
     '''
 
-    Get list of positive sequences indices (i.e. consisting of ones)
+    Get list of positive sequences indices (consisting of ones)
 
     Parameters
     ----------
