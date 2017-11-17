@@ -29,3 +29,9 @@ class MultiDict(OrderedDict):
             return itemgetter(*item)(self)
         else:
             return super(self.__class__, self).__getitem__(item)
+
+        
+        
+def multi_append(list_of_lists, *elems):
+   for l, e in zip(list_of_lists, elems):
+       l.append(e)
