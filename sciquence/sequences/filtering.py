@@ -18,6 +18,9 @@ def parallel_filter(condition, *lists):
 
     # TODO: check length
 
+    if isinstance(lists[0], list) and len(lists) == 1:
+        lists = lists[0]
+
     output = [[] for _ in xrange(len(lists))]
 
     for d in zip(*lists):
