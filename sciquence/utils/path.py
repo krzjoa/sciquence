@@ -1,5 +1,21 @@
 import os
 
+
+def make_if_not_exists(dir):
+    '''
+
+    Create new directory if not exists
+
+    Parameters
+    ----------
+    dir: str
+        Directory
+
+    '''
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+
 def listdir_with_extension(path, extension):
     '''
     
