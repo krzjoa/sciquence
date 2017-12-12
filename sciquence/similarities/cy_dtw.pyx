@@ -20,6 +20,8 @@ cimport numpy as np
 
 def dtw(A, B, metric):
   '''
+  dtw(A, B, metric)
+  
   Measure similarities between two sequences.
 
   When computing Dynamic Time Warping path, we are looking for the lowest cost
