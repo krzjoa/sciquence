@@ -3,12 +3,11 @@ sciquence API
 =============
 
 .. toctree::
-       :maxdepth: 2
+       :maxdepth: 3
 
    sciquence.sequences
    sciquence.similarities
    sciquence.postprocessing
-   sciquence.sliding_window
    sciquence.representation
    sciquence.text_processing
    sciquence.data_structures
