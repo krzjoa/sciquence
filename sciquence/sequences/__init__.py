@@ -5,6 +5,7 @@ from sampling import random_slice
 from sorting import parallel_sort
 from comparision import lseq_equal, shapes_equal, size_equal
 #from cy_searchning2 import max_seq
+from window_generator import wingen
 
 
 
@@ -28,8 +29,12 @@ __all__ = [
 
             # Sampling
 
-            # Sorting
-            'parallel_sort',
+           # Sorting
+           'parallel_sort',
+
+           # Sliding window
+           'wingen',
+
 
            # Searching functions
            'mslc',

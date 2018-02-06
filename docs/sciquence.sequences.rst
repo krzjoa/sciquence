@@ -47,6 +47,15 @@ Sorting
     parallel_sort
 
 
+Sliding window
+--------------
+
+.. autosummary::
+    :toctree:
+
+    wingen
+
+
 Searching
 ---------
 .. autosummary::

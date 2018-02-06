@@ -9,7 +9,7 @@
 from sklearn.preprocessing import Binarizer
 
 
-from ..base import Processor
+from sciquence.base import Processor
 import numpy as np
 
 
