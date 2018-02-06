@@ -10,13 +10,9 @@
 import numpy as np
 import scipy.stats
 from sklearn.preprocessing import scale, StandardScaler
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 from paa import paa
 from operator import add
-from sciquence.sliding_window import wingen, raw_wingen
-
-from scipy.spatial.distance import cosine
 
 
 def sax(sequence, window, alphabet_size=5, adjust=True):

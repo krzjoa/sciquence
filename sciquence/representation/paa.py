@@ -6,7 +6,7 @@
 #
 # License: MIT
 
-from sciquence.sliding_window import wingen, raw_wingen
+from sciquence.sequences import wingen
 import numpy as np
 
 
@@ -52,11 +52,9 @@ def paa(sequence, window, adjust=True):
     # TODO: Check adjust option
     # TODO: Consider optimization: output = np.zeros(len(sequence))
 
-    wgen = wingen if adjust else raw_wingen
-
     output = []
 
-    for w in wgen(sequence, window, window):
+    for w in wingen(sequence, window, window, raw=not adjust):
         output.append(np.mean(w))
 
     return np.array(output)
