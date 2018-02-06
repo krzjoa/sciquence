@@ -1,15 +1,24 @@
+# -*- coding: utf-8 -*-
+# Krzysztof Joachimiak 2018
+# sciquence: Time series & sequences in Pythonn
+#
+# Binarizers
+# Author: Krzysztof Joachimiak
+#
+# License: MIT
+
 
 
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class ClasswiseBinarizer(BaseEstimator, TransformerMixin):
-    ''
+    '''
     Performing binarization classwise. 
     
     It may be used for binarize independtly multiple class in the tagging tasks.
     
-    ''
+    '''
     def __init__(self, thresholds):
         self.thresholds=thresholds
         
@@ -23,12 +32,12 @@ class ClasswiseBinarizer(BaseEstimator, TransformerMixin):
        
 
 class ClasswiseMeanBinarizer(BaseEstimator, TransformerMixin):
-    ''
+    '''
     Performing binarization classwise. 
     
     It may be used for binarize independtly multiple class in the tagging tasks.
     
-    ''
+    '''
     def __init__(self):
         self.thresholds=thresholds
         
@@ -43,9 +52,9 @@ class ClasswiseMeanBinarizer(BaseEstimator, TransformerMixin):
 
 
 def binarize_classwise(X, thresholds):
-    ''
+    '''
     
     Binarizization perforemed classwise.
     
-    ''
+    '''
     return (X >= thresholds).astype(float)
