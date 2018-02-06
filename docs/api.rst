@@ -7,6 +7,7 @@ sciquence API
 
    sciquence.sequences
    sciquence.similarities
+   sciquence.postprocessing
    sciquence.sliding_window
    sciquence.representation
    sciquence.text_processing
