@@ -53,3 +53,46 @@ def make_masked_input(list_of_seq):
         input[i, :l] = list_of_seq[i]
     return input, mask
 
+
+def make_masked_rnn_input(*ls):
+    '''
+
+    RNN input
+
+    Parameters
+    ----------
+    ls: list of Iterable
+        List of numpy array
+
+    Returns
+    -------
+    mask: numpy.ndarray
+         Mask
+    '''
+
+    list_of_seq = ls[0]
+
+    lens = [seq.shape[1] for seq in list_of_seq]
+    N, M, L = len(lens), max(lens), list_of_seq[0].shape[-1]
+
+    mask = np.zeros((N, M, L))
+    input = [np.zeros((N, M, L)) for i in xrange(len(ls))]
+
+    # import pdb
+    # pdb.set_trace()
+
+    for i, l in enumerate(lens):
+        mask[i, :l, :] = 1.
+
+        for il in xrange(len(ls)):
+
+            # import pdb
+            # pdb.set_trace()
+
+            input[il][i, :l, :] = ls[il][i]
+
+
+    input += [mask]
+
+    return input
+
