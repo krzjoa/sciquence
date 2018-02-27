@@ -6,6 +6,7 @@ from sorting import parallel_sort
 from comparision import lseq_equal, shapes_equal, size_equal
 #from cy_searchning2 import max_seq
 from window_generator import wingen
+from other import center_idx
 
 
 
@@ -45,6 +46,9 @@ __all__ = [
            # Comparisions
             'lseq_equal',
             'shapes_equal',
-            'size_equal'
+            'size_equal',
+           
+           # Others
+           'center_idx'
 
            ]
