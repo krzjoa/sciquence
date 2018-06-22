@@ -173,11 +173,36 @@ def cut_patches(data, center_indices, pad, ignore_short=False):
     return patches
 
 
-def random_chunk(*arrays, **kwargs):
+def random_chunk(seq, chunk_length):
+    '''
+    
+    Cut random chunk from a sequence
+    
+    Parameters
+    ----------
+    seq: numpy.ndarray
+        A sequence
+    chunk_length: int
+        Desired length of sequence
+    
+    Returns
+    -------
+    random_chunk: numpy.ndarray
+        A random chunk of given length
+    
+    '''
+        
+    if len(seq) < chunk_length:
+        empty = np.zeros((chunk_length, 1))
+        empty[:len(seq)] = seq
+        return empty        
+    
+    start = np.random.randint(0, len(seq)-chunk_length)
+    stop = start + chunk_length
 
-    # Parsing keyword arguments
-
-    pass
+        
+    return seq[start:stop]
+    
 
 if __name__ == '__main__':
     print random_slice(44, 6)
