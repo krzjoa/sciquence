@@ -202,6 +202,33 @@ def random_chunk(seq, chunk_length):
 
         
     return seq[start:stop]
+
+# TODO: replace librosa.fix_length with own function
+# def put_center(data, desired_size):
+ #   '''
+ #   
+ #   Pad or trim data.
+ #   
+ #   Parameters
+ #   ----------
+  #  data: numpy.ndarray
+ #       Data
+ #   desired_size: int
+ #       Desired length of array
+  #  
+  #  Returns
+  #  -------
+  #  random_chunk: numpy.ndarray
+  #      A random chunk of given length
+    
+    
+#    '''
+#    if len(wave) > wave_size: 
+#        pd = (len(wave) - wave_size) / 2
+#        wave = wave[pd:-pd]
+#        return librosa.util.fix_length(wave, wave_size)
+#    else:
+#       return librosa.util.pad_center(wave, wave_size)
     
 
 if __name__ == '__main__':
