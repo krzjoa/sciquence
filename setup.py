@@ -36,7 +36,7 @@ if sys.argv[-1] == 'publish':
 with open('requirements.txt') as fid:
     INSTALL_REQUIRES = [l.strip() for l in fid.readlines() if l]
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 
 
 # Doclink
