@@ -3,8 +3,7 @@
 ![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg) 
 [![PyPI version](https://badge.fury.io/py/sciquence.svg)](https://badge.fury.io/py/sciquence) 
 [![Build Status](https://travis-ci.org/krzjoa/sciquence.svg?branch=master)](https://travis-ci.org/krzjoa/sciquence) 
-[![Documentation Status](http://sciquence.readthedocs.io/en/latest)]
-(https://readthedocs.org/projects/sciquence/badge/?version=latest) 
+[![Docs](http://sciquence.readthedocs.io/en/latest)](https://readthedocs.org/projects/sciquence/badge/?version=latest) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 Time series & sequences processing in Python (work in progress).
