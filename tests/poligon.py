@@ -8,7 +8,5 @@ expected = [np.array([1, 1, 1]), np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             np.array([1, 1, 1, 1, 1, 1, 1, 1, 1]),
             np.array([0, 0, 0, 0]), np.array([1, 1, 1, 1]), np.array([0, 0, 0])]
 
-print sq.seq(x)
-print sq.lseq_equal
-
-#print sq.lseq_equal(sq.seq(x), expected)
+print(sq.seq(x))
+print(sq.lseq_equal_)
