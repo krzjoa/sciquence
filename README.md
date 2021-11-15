@@ -6,9 +6,9 @@
 [![Documentation status](https://readthedocs.org/projects/sciquence/badge/?version=latest)]( http://sciquence.readthedocs.io/en/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
-Time series & sequences processing in Python (work in progress).
+Time series & sequences processing in Python.
 
-## Current features
+## Features
 * Sequence manipulation functions: splitting, cutting etc.
 * Searching algorithms, e.g.: longest subsequence with given minimal mean threshold
 * Dynamic Time Warping
